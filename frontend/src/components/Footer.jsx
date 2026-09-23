@@ -6,7 +6,7 @@ export default function Footer() {
   const { lang, t } = useLanguage();
 
   return (
-    <footer className="bg-slate-950 border-t border-slate-800 text-slate-400 py-10 px-4 sm:px-6 lg:px-8 text-xs">
+    <footer className="bg-slate-950 border-t border-slate-800 text-slate-400 py-10 px-4 sm:px-6 lg:px-8 text-xs no-print">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         
         {/* Brand Column */}

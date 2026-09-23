@@ -8,6 +8,10 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PanicAlertBanner from './components/PanicAlertBanner';
 import AuthModal from './components/AuthModal';
+import ToastContainer from './components/ToastContainer';
+import BasketDrawer from './components/BasketDrawer';
+import CommandPalette from './components/CommandPalette';
+import MobileBottomNav from './components/MobileBottomNav';
 
 import Home from './pages/Home';
 import PriceHeatmap from './pages/PriceHeatmap';
@@ -23,7 +27,7 @@ function MainApp() {
   const [authOpen, setAuthOpen] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-900 text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-white">
+    <div className="flex flex-col min-h-screen bg-[#0b1120] text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-white pb-16 md:pb-0">
       <Navbar onOpenAuth={() => setAuthOpen(true)} />
       <PanicAlertBanner />
       
@@ -42,7 +46,11 @@ function MainApp() {
       </main>
 
       <Footer />
+      <MobileBottomNav />
       <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
+      <BasketDrawer />
+      <CommandPalette />
+      <ToastContainer />
     </div>
   );
 }
