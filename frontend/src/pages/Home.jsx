@@ -5,7 +5,8 @@ import {
   CloudSun, AlertOctagon, Calculator, ShieldCheck, 
   ArrowRight, CheckCircle2, PhoneCall, Scale, AlertTriangle, ArrowUpRight, ArrowDownRight,
   Plus, ShoppingCart, Award, MapPin, Search, Bell, Share2, 
-  ChevronDown, ChevronUp, Copy, Check, Terminal, ExternalLink, Users, FileText, Database, HeartHandshake
+  ChevronDown, ChevronUp, Copy, Check, Terminal, ExternalLink, Users, FileText, Database, HeartHandshake,
+  Mail, Send, CreditCard, UserCheck, Briefcase
 } from 'lucide-react';
 import { useBazaar } from '../context/BazaarContext';
 import MarketSentinelGauge from '../components/MarketSentinelGauge';
@@ -46,6 +47,11 @@ export default function Home({ onOpenAuth }) {
 
   // Quick API Test State (Dynamic)
   const [copiedApi, setCopiedApi] = useState(false);
+
+  // Section 12 Extra Section Interactive Tabs: 'pricing' | 'team' | 'contact' | 'api'
+  const [extraTab, setExtraTab] = useState('pricing');
+  const [contactForm, setContactForm] = useState({ name: '', email: '', subject: 'Whistleblower Inquiry', message: '' });
+  const [contactSubmitted, setContactSubmitted] = useState(false);
 
   const agro = ticker?.agroTelemetry || {};
   const forex = agro.forex || { usdToBdt: 122.86 };
@@ -855,52 +861,473 @@ export default function Home({ onOpenAuth }) {
         </div>
       </section>
 
-      {/* SECTION 12: EXTRA SECTION — METHODOLOGY & PUBLIC API DEVELOPER DESK (Dynamic) */}
+      {/* SECTION 12: EXTRA SECTION — PRICING / TEAM / CONTACT & DEVELOPER API (Dynamic) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-        <div className="bg-slate-900/80 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div className="bg-slate-900/80 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl">
           
+          {/* Header & Interactive Tab Selectors */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-slate-800">
             <div>
-              <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider block mb-1">
-                Transparency & Developer Ecosystem
+              <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider block mb-1">
+                Transparency, Governance & Access
               </span>
-              <h3 className="text-lg font-bold text-white">
-                Fair-Price Methodology & Open REST API Desk
+              <h3 className="text-xl font-black text-white">
+                Civic Access Pricing, Leadership Team &amp; Operations Center
               </h3>
             </div>
 
-            <button
-              onClick={() => setIsMethodologyOpen(true)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white text-xs font-bold border border-emerald-500/30 transition"
-            >
-              <Scale className="w-4 h-4" />
-              <span>Inspect DAM Formula Math</span>
-            </button>
+            {/* Interactive Tab Switcher */}
+            <div className="flex flex-wrap items-center gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-slate-800 text-xs font-bold">
+              <button
+                onClick={() => setExtraTab('pricing')}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition ${
+                  extraTab === 'pricing'
+                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-950/50'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <CreditCard className="w-3.5 h-3.5" />
+                <span>Pricing &amp; Access</span>
+              </button>
+
+              <button
+                onClick={() => setExtraTab('team')}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition ${
+                  extraTab === 'team'
+                    ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-950/50'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Users className="w-3.5 h-3.5" />
+                <span>Leadership Team</span>
+              </button>
+
+              <button
+                onClick={() => setExtraTab('contact')}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition ${
+                  extraTab === 'contact'
+                    ? 'bg-rose-600 text-white shadow-lg shadow-rose-950/50'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>Contact &amp; Dispatch</span>
+              </button>
+
+              <button
+                onClick={() => setExtraTab('api')}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition ${
+                  extraTab === 'api'
+                    ? 'bg-amber-600 text-white shadow-lg shadow-amber-950/50'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <Terminal className="w-3.5 h-3.5" />
+                <span>Open REST API</span>
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6 items-center">
-            
-            {/* Left: Code Snippet / API Explorer */}
-            <div className="lg:col-span-7 bg-slate-950 rounded-2xl p-4 border border-slate-800 font-mono text-xs">
-              <div className="flex justify-between items-center pb-3 mb-3 border-b border-slate-800 text-slate-400 text-[11px]">
-                <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
-                  <Terminal className="w-3.5 h-3.5" />
-                  <span>GET /api/commodities</span>
-                </span>
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText('curl -s https://bazaarpulse-bd.vercel.app/api/commodities');
-                    setCopiedApi(true);
-                    setTimeout(() => setCopiedApi(false), 2000);
-                  }}
-                  className="hover:text-white flex items-center gap-1"
-                >
-                  {copiedApi ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
-                  <span>{copiedApi ? 'Copied' : 'Copy cURL'}</span>
-                </button>
+          {/* TAB 1: PRICING & CIVIC ACCESS TIERS */}
+          {extraTab === 'pricing' && (
+            <div className="mt-8 animate-fade-in-up">
+              <div className="text-center max-w-xl mx-auto mb-8">
+                <h4 className="text-lg font-bold text-white">Democratic, Public-Good Civic Tech</h4>
+                <p className="text-xs text-slate-400 mt-1">
+                  BazaarPulse BD operates under open-access principles for 170M Bangladeshi citizens, subsidized by civic innovation research grants.
+                </p>
               </div>
 
-              <pre className="text-slate-300 text-[11px] overflow-x-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                {/* Tier 1: Citizens */}
+                <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition">
+                  <div>
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 uppercase">
+                      Citizen Freedom
+                    </span>
+                    <div className="mt-4 flex items-baseline gap-1">
+                      <span className="text-3xl font-black text-white">৳0</span>
+                      <span className="text-xs text-slate-400">/ forever free</span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">
+                      Full access for everyday consumers and homemakers to protect household budgets.
+                    </p>
+
+                    <ul className="mt-6 space-y-2.5 text-xs text-slate-300">
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                        <span>Unlimited price lookup &amp; Karwan wholesale spread</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                        <span>Live TCB subsidized truck GPS locator</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                        <span>Anonymous DNCRP 13346 evidence filing</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                        <span>Monthly Grocery Basket Budget audit tool</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <button
+                    onClick={() => onOpenAuth?.()}
+                    className="mt-6 w-full py-2.5 px-4 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white text-xs font-bold border border-emerald-500/30 transition text-center"
+                  >
+                    Start Free Citizen Access
+                  </button>
+                </div>
+
+                {/* Tier 2: Journalists & Researchers */}
+                <div className="bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-cyan-500/50 rounded-2xl p-6 flex flex-col justify-between shadow-2xl relative">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyan-600 text-white text-[10px] font-black px-3 py-0.5 rounded-full uppercase tracking-wider shadow">
+                    Most Popular for Media
+                  </div>
+
+                  <div>
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 uppercase">
+                      Journalists &amp; NGOs
+                    </span>
+                    <div className="mt-4 flex items-baseline gap-1">
+                      <span className="text-3xl font-black text-white">৳0</span>
+                      <span className="text-xs text-slate-400">/ Civic Grant</span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">
+                      Designed for consumer rights reporters, student vigilance committees, and universities.
+                    </p>
+
+                    <ul className="mt-6 space-y-2.5 text-xs text-slate-300">
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                        <span>All Citizen Freedom features included</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                        <span>Direct REST API access (10,000 req/day)</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                        <span>7, 30 &amp; 90-day historical CSV exports</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                        <span>Real-time syndicate anomaly webhook alerts</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <button
+                    onClick={() => setExtraTab('api')}
+                    className="mt-6 w-full py-2.5 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition text-center shadow-lg shadow-cyan-950/50"
+                  >
+                    View API Access Credentials
+                  </button>
+                </div>
+
+                {/* Tier 3: Ministries & Municipalities */}
+                <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-amber-500/50 transition">
+                  <div>
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30 uppercase">
+                      Public Sector &amp; Magistracy
+                    </span>
+                    <div className="mt-4 flex items-baseline gap-1">
+                      <span className="text-2xl font-black text-white">Inter-Agency</span>
+                      <span className="text-xs text-slate-400">/ Partnership</span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">
+                      Direct integration for DNCRP mobile courts, DC offices, and DAM monitoring taskforces.
+                    </p>
+
+                    <ul className="mt-6 space-y-2.5 text-xs text-slate-300">
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                        <span>Mobile Court Section 40 dossier generator</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                        <span>Sub-second wholesale auction price feed</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                        <span>District-level cold-storage syndicate telemetry</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                        <span>Dedicated liaison officer support channel</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <button
+                    onClick={() => setExtraTab('contact')}
+                    className="mt-6 w-full py-2.5 px-4 rounded-xl bg-amber-600/20 hover:bg-amber-600 text-amber-300 hover:text-white text-xs font-bold border border-amber-500/30 transition text-center"
+                  >
+                    Request Ministry Integration
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: LEADERSHIP TEAM & ADVISORY BOARD */}
+          {extraTab === 'team' && (
+            <div className="mt-8 animate-fade-in-up">
+              <div className="text-center max-w-xl mx-auto mb-8">
+                <h4 className="text-lg font-bold text-white">The Minds Behind BazaarPulse BD</h4>
+                <p className="text-xs text-slate-400 mt-1">
+                  Engineered by civic-tech software architects, agricultural supply chain economists, and legal advocates dedicated to fair markets.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                {/* Person 1 */}
+                <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 hover:border-emerald-500/50 transition">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold text-sm mb-3">
+                    SI
+                  </div>
+                  <h5 className="text-sm font-bold text-white">Sayed Sohanul Islam</h5>
+                  <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider block">Lead Civic Architect</span>
+                  <p className="text-[11px] text-slate-400 mt-2 leading-relaxed">
+                    Full-Stack Systems Engineer specializing in real-time telemetry, Leaflet GIS pipelines, and high-performance civic architectures.
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-slate-800/80 text-[10px] text-slate-500">
+                    Focus: React 18, Node.js &amp; GIS
+                  </div>
+                </div>
+
+                {/* Person 2 */}
+                <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 hover:border-cyan-500/50 transition">
+                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center font-bold text-sm mb-3">
+                    RA
+                  </div>
+                  <h5 className="text-sm font-bold text-white">Dr. Rasheda Akhter</h5>
+                  <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider block">Agri-Economist Advisor</span>
+                  <p className="text-[11px] text-slate-400 mt-2 leading-relaxed">
+                    Agricultural supply chain scientist advising on DAM statutory price formulas, farmgate transport spreads, and cold storage margins.
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-slate-800/80 text-[10px] text-slate-500">
+                    Focus: Agricultural Marketing Act 2018
+                  </div>
+                </div>
+
+                {/* Person 3 */}
+                <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 hover:border-rose-500/50 transition">
+                  <div className="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center font-bold text-sm mb-3">
+                    BA
+                  </div>
+                  <h5 className="text-sm font-bold text-white">Barrister Rafiqul Alam</h5>
+                  <span className="text-[10px] text-rose-400 font-bold uppercase tracking-wider block">Consumer Legal Counsel</span>
+                  <p className="text-[11px] text-slate-400 mt-2 leading-relaxed">
+                    Supreme Court advocate directing compliance for DNCRP Section 40 complaints and citizen whistleblower 25% reward provisions.
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-slate-800/80 text-[10px] text-slate-500">
+                    Focus: Consumer Rights Act 2009
+                  </div>
+                </div>
+
+                {/* Person 4 */}
+                <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 hover:border-amber-500/50 transition">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-sm mb-3">
+                    NR
+                  </div>
+                  <h5 className="text-sm font-bold text-white">Kazi Naimur Rahman</h5>
+                  <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">Wholesale Arat Auditor</span>
+                  <p className="text-[11px] text-slate-400 mt-2 leading-relaxed">
+                    Field operations coordinator auditing primary auction volumes at Karwan Bazar, Badamtoli, and Khatunganj wholesale centers.
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-slate-800/80 text-[10px] text-slate-500">
+                    Focus: Real-time Auction Verification
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: CONTACT & EMERGENCY DISPATCH */}
+          {extraTab === 'contact' && (
+            <div className="mt-8 animate-fade-in-up">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                {/* Operations Desk Info */}
+                <div className="lg:col-span-5 space-y-4 text-xs">
+                  <div>
+                    <span className="text-[10px] text-rose-400 font-bold uppercase tracking-wider block mb-1">
+                      Direct Operational Desks
+                    </span>
+                    <h4 className="text-base font-bold text-white">
+                      Karwan Bazar Operations Headquarters
+                    </h4>
+                    <p className="text-slate-400 mt-1 leading-relaxed">
+                      Reach our 24/7 civic oversight team, verified wholesale monitors, and legal dispatch liaison officers.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2.5 pt-2">
+                    <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-start gap-3">
+                      <MapPin className="w-4 h-4 text-cyan-400 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="text-white block">Central Monitoring Command:</strong>
+                        <span className="text-slate-400 text-[11px]">Level 4, Wholesale Arat Complex, Karwan Bazar, Dhaka-1215</span>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-start gap-3">
+                      <PhoneCall className="w-4 h-4 text-rose-400 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="text-white block">Emergency Hotlines:</strong>
+                        <span className="text-slate-400 text-[11px]">
+                          DNCRP Hotline: <a href="tel:13346" className="text-rose-400 font-bold hover:underline">13346</a> • Agri Info: <a href="tel:16123" className="text-emerald-400 font-bold hover:underline">16123</a>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-start gap-3">
+                      <Mail className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="text-white block">Official Electronic Dispatch:</strong>
+                        <span className="text-slate-400 text-[11px]">
+                          Citizen Inquiries: <span className="text-emerald-300">dispatch@bazaarpulse.bd</span><br />
+                          Journalists &amp; Media: <span className="text-cyan-300">media@bazaarpulse.bd</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Interactive Message Dispatch Form */}
+                <div className="lg:col-span-7 bg-slate-950 rounded-2xl p-6 border border-slate-800">
+                  <h4 className="text-sm font-bold text-white flex items-center gap-2 mb-1">
+                    <Send className="w-4 h-4 text-emerald-400" />
+                    <span>Send Verified Whistleblower Tip or Partnership Inquiry</span>
+                  </h4>
+                  <p className="text-xs text-slate-400 mb-4">
+                    Directly encrypted and dispatched to our civic verification desk within 15 minutes.
+                  </p>
+
+                  {contactSubmitted ? (
+                    <div className="p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-3">
+                      <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0" />
+                      <div>
+                        <strong className="font-bold text-white block">Inquiry Dispatched Successfully!</strong>
+                        <span>Thank you. Our market monitors have queued your message for priority review.</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <form 
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        if (!contactForm.name || !contactForm.message) {
+                          addToast('Please complete all required fields', 'error');
+                          return;
+                        }
+                        setContactSubmitted(true);
+                        addToast('Message dispatched to BazaarPulse operations team!', 'success');
+                        setTimeout(() => {
+                          setContactSubmitted(false);
+                          setContactForm({ name: '', email: '', subject: 'Whistleblower Inquiry', message: '' });
+                        }, 4000);
+                      }}
+                      className="space-y-3"
+                    >
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-bold text-slate-400 block mb-1">Your Name / Alias *</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Citizen Reporter"
+                            value={contactForm.name}
+                            onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-bold text-slate-400 block mb-1">Email / Telegram</label>
+                          <input
+                            type="text"
+                            placeholder="reporter@domain.com or @handle"
+                            value={contactForm.email}
+                            onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-400 block mb-1">Subject</label>
+                        <select
+                          value={contactForm.subject}
+                          onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        >
+                          <option value="Whistleblower Inquiry">Price Gouging Whistleblower Tip</option>
+                          <option value="TCB Stock Anomaly">Subsidized TCB Truck Issue</option>
+                          <option value="Media/Academic Data Request">Journalist / Academic Dataset Access</option>
+                          <option value="Government Collaboration">DGHS / DNCRP Institutional Partnership</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-bold text-slate-400 block mb-1">Detailed Message *</label>
+                        <textarea
+                          required
+                          rows={3}
+                          placeholder="Describe the market name, charged price vs DAM cap, or your research inquiry..."
+                          value={contactForm.message}
+                          onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-950/50"
+                      >
+                        <Send className="w-3.5 h-3.5" />
+                        <span>Dispatch to Operations Command</span>
+                      </button>
+                    </form>
+                  )}
+                </div>
+
+              </div>
+            </div>
+          )}
+
+          {/* TAB 4: DEVELOPER REST API CONSOLE */}
+          {extraTab === 'api' && (
+            <div className="mt-8 animate-fade-in-up">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                
+                {/* Left: Code Snippet / API Explorer */}
+                <div className="lg:col-span-7 bg-slate-950 rounded-2xl p-4 border border-slate-800 font-mono text-xs">
+                  <div className="flex justify-between items-center pb-3 mb-3 border-b border-slate-800 text-slate-400 text-[11px]">
+                    <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
+                      <Terminal className="w-3.5 h-3.5" />
+                      <span>GET /api/commodities</span>
+                    </span>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText('curl -s https://bazaarpulse-bd.vercel.app/api/commodities');
+                        setCopiedApi(true);
+                        setTimeout(() => setCopiedApi(false), 2000);
+                      }}
+                      className="hover:text-white flex items-center gap-1"
+                    >
+                      {copiedApi ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                      <span>{copiedApi ? 'Copied' : 'Copy cURL'}</span>
+                    </button>
+                  </div>
+
+                  <pre className="text-slate-300 text-[11px] overflow-x-auto">
 {`{
   "status": "success",
   "data": [
@@ -915,42 +1342,44 @@ export default function Home({ onOpenAuth }) {
     }
   ]
 }`}
-              </pre>
+                  </pre>
+                </div>
+
+                {/* Right: NGO & Media Usage */}
+                <div className="lg:col-span-5 space-y-3 text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                    <span className="font-bold text-white block mb-0.5">For Investigative Journalists</span>
+                    <p className="text-slate-400 text-[11px]">
+                      Track middleman price discrepancies and download daily historical CSVs for market cartels reporting.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                    <span className="font-bold text-white block mb-0.5">For Consumer Rights Volunteers</span>
+                    <p className="text-slate-400 text-[11px]">
+                      Instant access to DNCRP Section 40 templates with pre-computed statutory violation calculations.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 pt-2">
+                    <a
+                      href="tel:13346"
+                      className="flex-1 py-2 px-3 rounded-xl bg-rose-600/20 text-rose-300 hover:bg-rose-600 hover:text-white border border-rose-500/30 font-bold text-center transition"
+                    >
+                      Hotline 13346
+                    </a>
+                    <button
+                      onClick={() => setIsMethodologyOpen(true)}
+                      className="flex-1 py-2 px-3 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700 font-bold text-center transition"
+                    >
+                      Inspect DAM Math
+                    </button>
+                  </div>
+                </div>
+
+              </div>
             </div>
-
-            {/* Right: NGO & Media Usage */}
-            <div className="lg:col-span-5 space-y-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800">
-                <span className="font-bold text-white block mb-0.5">For Investigative Journalists</span>
-                <p className="text-slate-400 text-[11px]">
-                  Track middleman price discrepancies and download daily historical CSVs for market cartels reporting.
-                </p>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800">
-                <span className="font-bold text-white block mb-0.5">For Consumer Rights Volunteers</span>
-                <p className="text-slate-400 text-[11px]">
-                  Instant access to DNCRP Section 40 templates with pre-computed statutory violation calculations.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 pt-2">
-                <a
-                  href="tel:13346"
-                  className="flex-1 py-2 px-3 rounded-xl bg-rose-600/20 text-rose-300 hover:bg-rose-600 hover:text-white border border-rose-500/30 font-bold text-center transition"
-                >
-                  Hotline 13346
-                </a>
-                <button
-                  onClick={() => setIsMethodologyOpen(true)}
-                  className="flex-1 py-2 px-3 rounded-xl bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700 font-bold text-center transition"
-                >
-                  Read Docs
-                </button>
-              </div>
-            </div>
-
-          </div>
+          )}
 
         </div>
       </section>
