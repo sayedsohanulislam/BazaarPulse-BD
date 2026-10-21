@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const raidActionSchema = new mongoose.Schema({
   magistrateName: { type: String, required: true },
-  agency: { type: String, default: 'DNCRP (জাতীয় ভোক্তা-অধিকার সংরক্ষণ অধিদপ্তর)' },
+  agency: { type: String, default: 'DNCRP (Directorate of National Consumer Rights Protection)' },
   targetMarket: { type: String, required: true },
   district: { type: String, required: true },
   infraction: { type: String, required: true },

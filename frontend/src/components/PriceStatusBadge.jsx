@@ -1,10 +1,7 @@
 import React from 'react';
 import { ShieldCheck, AlertTriangle, AlertCircle, AlertOctagon } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 
 export default function PriceStatusBadge({ retailPrice, fairPriceMax, showPercent = true }) {
-  const { lang } = useLanguage();
-
   if (!retailPrice || !fairPriceMax) {
     return (
       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-400 border border-slate-700">
@@ -20,7 +17,7 @@ export default function PriceStatusBadge({ retailPrice, fairPriceMax, showPercen
     return (
       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
         <ShieldCheck className="w-3 h-3 text-emerald-400" />
-        <span>{lang === 'bn' ? 'ন্যায্যমূল্য' : 'Fair Price'}</span>
+        <span>Fair Price</span>
       </span>
     );
   }
@@ -29,7 +26,7 @@ export default function PriceStatusBadge({ retailPrice, fairPriceMax, showPercen
     return (
       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/15 text-amber-400 border border-amber-500/30">
         <AlertTriangle className="w-3 h-3 text-amber-400" />
-        <span>{lang === 'bn' ? 'সামান্য বেশি' : 'Slightly High'}</span>
+        <span>Slightly High</span>
         {showPercent && <span className="opacity-90">+{markupPercent.toFixed(0)}%</span>}
       </span>
     );
@@ -39,7 +36,7 @@ export default function PriceStatusBadge({ retailPrice, fairPriceMax, showPercen
     return (
       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-orange-500/15 text-orange-400 border border-orange-500/30">
         <AlertCircle className="w-3 h-3 text-orange-400" />
-        <span>{lang === 'bn' ? 'অতিরিক্ত দাম' : 'Overpriced'}</span>
+        <span>Overpriced</span>
         {showPercent && <span className="opacity-90">+{markupPercent.toFixed(0)}%</span>}
       </span>
     );
@@ -48,7 +45,7 @@ export default function PriceStatusBadge({ retailPrice, fairPriceMax, showPercen
   return (
     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/40 animate-pulse">
       <AlertOctagon className="w-3 h-3 text-rose-400" />
-      <span>{lang === 'bn' ? 'সিন্ডিকেট কারসাজি' : 'Gouging'}</span>
+      <span>Syndicate Gouging</span>
       {showPercent && <span className="opacity-90">+{markupPercent.toFixed(0)}%</span>}
     </span>
   );

@@ -6,7 +6,6 @@ import {
   LayoutGrid, Table, ArrowUpDown, Plus, ShoppingCart, AlertOctagon,
   Sparkles, CheckCircle2, Download, Share2
 } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 import { useBazaar } from '../context/BazaarContext';
 import { analyticsApi } from '../services/api';
 import PriceStatusBadge from '../components/PriceStatusBadge';
@@ -81,7 +80,6 @@ function GraduatedPriceRangeSpectrum({ fairMin, fairMax, wholesale, retail, unit
 }
 
 export default function PriceHeatmap() {
-  const { lang, t } = useLanguage();
   const { commodities, loading, forceRefresh, isRefreshing, addToBasket, setIsBasketOpen } = useBazaar();
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [search, setSearch] = useState('');
@@ -100,14 +98,14 @@ export default function PriceHeatmap() {
   }, []);
 
   const categories = [
-    { id: 'ALL', label: 'All Items', labelBn: 'সকল পণ্য', icon: '🧺' },
-    { id: 'Vegetables', label: 'Vegetables', labelBn: 'সবজি', icon: '🥔' },
-    { id: 'Spices', label: 'Spices', labelBn: 'মসলা', icon: '🧅' },
-    { id: 'Oils & Fats', label: 'Oils & Fats', labelBn: 'ভোজ্য তেল', icon: '🛢️' },
-    { id: 'Poultry & Meat', label: 'Poultry & Meat', labelBn: 'মাংস ও ডিম', icon: '🥩' },
-    { id: 'Fish', label: 'Fish', labelBn: 'মাছ', icon: '🐟' },
-    { id: 'Grains & Rice', label: 'Grains & Rice', labelBn: 'চাল ও গম', icon: '🌾' },
-    { id: 'Lentils & Pulses', label: 'Lentils & Pulses', labelBn: 'ডাল', icon: '🫘' }
+    { id: 'ALL', label: 'All Items', icon: '🧺' },
+    { id: 'Vegetables', label: 'Vegetables', icon: '🥔' },
+    { id: 'Spices', label: 'Spices', icon: '🧅' },
+    { id: 'Oils & Fats', label: 'Oils & Fats', icon: '🛢️' },
+    { id: 'Poultry & Meat', label: 'Poultry & Meat', icon: '🥩' },
+    { id: 'Fish', label: 'Fish', icon: '🐟' },
+    { id: 'Grains & Rice', label: 'Grains & Rice', icon: '🌾' },
+    { id: 'Lentils & Pulses', label: 'Lentils & Pulses', icon: '🫘' }
   ];
 
   const handleExportCSV = () => {
@@ -136,7 +134,6 @@ export default function PriceHeatmap() {
   let filtered = (commodities || []).filter(c => {
     const matchesCat = selectedCategory === 'ALL' || c.category === selectedCategory;
     const matchesSearch = c.name.toLowerCase().includes(search.toLowerCase()) || 
-                          c.nameBn.includes(search) ||
                           (c.supplyOrigin && c.supplyOrigin.toLowerCase().includes(search.toLowerCase()));
     const isOver = c.retailAvgPrice > (c.damFairPriceMax || c.damFairPriceMin);
     const matchesOverchargeOnly = onlyOvercharged ? isOver : true;
@@ -165,15 +162,13 @@ export default function PriceHeatmap() {
             <div>
               <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
                 <TrendingUp className="w-4 h-4 text-emerald-400 animate-pulse" />
-                <span>{lang === 'bn' ? 'নিত্যপণ্যের পূর্ণাঙ্গ ন্যায্যমূল্য গ্রিড' : 'National Essential Commodities Price Heatmap'}</span>
+                <span>National Essential Commodities Price Heatmap</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white">
-                {lang === 'bn' ? 'কৃষি বিপণন অধিদপ্তর ন্যায্যমূল্য বনাম বাজার রেট' : 'DAM Fair Price Range vs Open Retail Rates'}
+                DAM Fair Price Range vs Open Retail Rates
               </h1>
               <p className="text-sm text-slate-400 mt-1">
-                {lang === 'bn' 
-                  ? 'কাওরান বাজার পাইকারি আড়ত, সরকারি দাম এবং সিন্ডিকেটের কৃত্রিম মূল্যবৃদ্ধির ঝুঁকি সূচক।' 
-                  : 'Real-time retail comparison against Karwan Bazar wholesale baseline and syndicate risk scores.'}
+                Real-time retail comparison against Karwan Bazar wholesale baseline and syndicate risk scores.
               </p>
             </div>
 
@@ -184,7 +179,7 @@ export default function PriceHeatmap() {
                 title="Download Clean CSV Matrix"
               >
                 <Download className="w-4 h-4 text-emerald-400" />
-                <span>{lang === 'bn' ? 'এক্সপোর্ট CSV' : 'Export CSV'}</span>
+                <span>Export CSV</span>
               </button>
 
               <button
@@ -192,7 +187,7 @@ export default function PriceHeatmap() {
                 className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs border border-slate-700 transition"
               >
                 <ShoppingCart className="w-4 h-4 text-amber-400" />
-                <span>{lang === 'bn' ? 'বাজার ব্যাগ' : 'Fair Basket'}</span>
+                <span>Fair Basket</span>
               </button>
 
               <button
@@ -201,7 +196,7 @@ export default function PriceHeatmap() {
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition shadow-lg shadow-emerald-950/40 disabled:opacity-50"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
-                <span>{isRefreshing ? 'Syncing...' : (lang === 'bn' ? 'লাইভ রিফ্রেশ' : 'Refresh Telemetry')}</span>
+                <span>{isRefreshing ? 'Syncing...' : 'Refresh Telemetry'}</span>
               </button>
             </div>
           </div>
@@ -218,7 +213,7 @@ export default function PriceHeatmap() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={lang === 'bn' ? 'পণ্যের নাম বা উৎস সার্চ করুন...' : 'Search commodity name or origin...'}
+                placeholder="Search commodity name or origin..."
                 className="w-full bg-slate-950/80 border border-slate-700 rounded-xl pl-10 pr-4 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
               />
             </div>
@@ -236,7 +231,7 @@ export default function PriceHeatmap() {
                 }`}
               >
                 <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
-                <span>{lang === 'bn' ? 'শুধু অতিরিক্ত দামের পণ্য' : 'Overcharged Only'}</span>
+                <span>Overcharged Only</span>
               </button>
 
               {/* Sort Selector */}
@@ -247,10 +242,10 @@ export default function PriceHeatmap() {
                   onChange={(e) => setSortBy(e.target.value)}
                   className="bg-transparent text-slate-200 focus:outline-none text-xs font-medium cursor-pointer"
                 >
-                  <option value="overcharge" className="bg-slate-900">{t('sort_overcharge')}</option>
-                  <option value="priceDesc" className="bg-slate-900">{t('sort_price_desc')}</option>
-                  <option value="priceAsc" className="bg-slate-900">{t('sort_price_asc')}</option>
-                  <option value="risk" className="bg-slate-900">{t('sort_risk')}</option>
+                  <option value="overcharge" className="bg-slate-900">Highest Overcharge</option>
+                  <option value="priceDesc" className="bg-slate-900">Price: High to Low</option>
+                  <option value="priceAsc" className="bg-slate-900">Price: Low to High</option>
+                  <option value="risk" className="bg-slate-900">Syndicate Risk</option>
                 </select>
               </div>
 
@@ -261,20 +256,20 @@ export default function PriceHeatmap() {
                   className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition ${
                     viewMode === 'grid' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'
                   }`}
-                  title={t('view_card')}
+                  title="Card View"
                 >
                   <LayoutGrid className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">{lang === 'bn' ? 'কার্ড' : 'Grid'}</span>
+                  <span className="hidden sm:inline">Grid</span>
                 </button>
                 <button
                   onClick={() => setViewMode('table')}
                   className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition ${
                     viewMode === 'table' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'
                   }`}
-                  title={t('view_table')}
+                  title="Financial Table View"
                 >
                   <Table className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">{lang === 'bn' ? 'টেবিল' : 'Matrix'}</span>
+                  <span className="hidden sm:inline">Matrix</span>
                 </button>
               </div>
 
@@ -295,7 +290,7 @@ export default function PriceHeatmap() {
                 }`}
               >
                 <span>{cat.icon}</span>
-                <span>{lang === 'bn' ? cat.labelBn : cat.label}</span>
+                <span>{cat.label}</span>
               </button>
             ))}
           </div>
@@ -310,14 +305,14 @@ export default function PriceHeatmap() {
               const isHighOvercharge = overcharge > 0;
               return (
                 <div 
-                  key={c.id || c._id}
+                  key={c.id || c._id} 
                   className="bg-slate-900/80 border border-slate-700/80 rounded-2xl p-5 hover:border-slate-500 transition flex flex-col justify-between shadow-lg"
                 >
                   <div>
                     <div className="flex justify-between items-start gap-2">
                       <div>
                         <h3 className="text-base font-bold text-white leading-tight">
-                          {lang === 'bn' ? c.nameBn : c.name}
+                          {c.name}
                         </h3>
                         <span className="text-[11px] text-slate-400">{c.category} • {c.supplyOrigin}</span>
                       </div>
@@ -396,7 +391,7 @@ export default function PriceHeatmap() {
                         to={`/whistle?commodity=${encodeURIComponent(c.name)}&chargedPrice=${c.retailAvgPrice}&fairPrice=${fairCap}`}
                         className="px-2 py-0.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-[11px] font-semibold border border-rose-500/30 transition"
                       >
-                        {lang === 'bn' ? 'রিপোর্ট' : 'Report'}
+                        Report
                       </Link>
                     </div>
 
@@ -423,7 +418,7 @@ export default function PriceHeatmap() {
                       className="w-full py-1.5 px-3 rounded-lg bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white text-xs font-semibold border border-emerald-500/30 flex items-center justify-center gap-1.5 transition"
                     >
                       <Plus className="w-3.5 h-3.5" />
-                      <span>{lang === 'bn' ? 'ন্যায্যমূল্য ব্যাগে নিন' : 'Add to Fair Basket'}</span>
+                      <span>Add to Fair Basket</span>
                     </button>
                   </div>
                 </div>
@@ -432,7 +427,7 @@ export default function PriceHeatmap() {
           </div>
         )}
 
-        {/* View 2: Dense Financial Matrix View (Bloomberg / CoinMarketCap Style) */}
+        {/* View 2: Dense Financial Matrix View */}
         {viewMode === 'table' && (
           <div className="bg-slate-900/80 border border-slate-700/80 rounded-2xl shadow-xl overflow-hidden">
             <div className="overflow-x-auto">
@@ -458,7 +453,7 @@ export default function PriceHeatmap() {
                     return (
                       <tr key={c.id || c._id} className="hover:bg-slate-800/50 transition">
                         <td className="p-3.5">
-                          <div className="font-bold text-white text-sm">{lang === 'bn' ? c.nameBn : c.name}</div>
+                          <div className="font-bold text-white text-sm">{c.name}</div>
                           <div className="text-[10px] text-slate-400">{c.supplyOrigin}</div>
                         </td>
                         <td className="p-3.5 text-slate-400">{c.category}</td>
@@ -480,25 +475,23 @@ export default function PriceHeatmap() {
                           <PriceSparkline delta={c.deltaPercent} />
                         </td>
                         <td className="p-3.5">
-                          <span className={`text-xs font-bold ${c.syndicateRiskScore > 70 ? 'text-rose-400' : 'text-slate-300'}`}>
+                          <span className={`font-semibold ${c.syndicateRiskScore > 70 ? 'text-rose-400' : 'text-slate-400'}`}>
                             {c.syndicateRiskScore}%
                           </span>
                         </td>
-                        <td className="p-3.5 text-right space-x-1.5">
+                        <td className="p-3.5 text-right space-x-2">
+                          <button
+                            onClick={() => setTrendModalCommodity(c)}
+                            className="text-cyan-400 hover:text-cyan-300 font-semibold"
+                          >
+                            Trends
+                          </button>
                           <button
                             onClick={() => addToBasket(c, 1)}
-                            className="px-2.5 py-1 bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white rounded-lg text-xs font-semibold transition border border-emerald-500/30"
+                            className="text-emerald-400 hover:text-emerald-300 font-semibold"
                           >
-                            + Basket
+                            +Basket
                           </button>
-                          {isOver && (
-                            <Link
-                              to={`/whistle?commodity=${encodeURIComponent(c.name)}&chargedPrice=${c.retailAvgPrice}&fairPrice=${fairCap}`}
-                              className="px-2.5 py-1 bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white rounded-lg text-xs font-semibold transition border border-rose-500/30"
-                            >
-                              Report
-                            </Link>
-                          )}
                         </td>
                       </tr>
                     );
@@ -514,7 +507,7 @@ export default function PriceHeatmap() {
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <Layers className="w-5 h-5 text-emerald-400" />
-              <span>{lang === 'bn' ? 'কাওরান বাজার পাইকারি আড়ত বনাম খুচরা বাজার মূল্যের ব্যবধান' : 'Wholesale Arat vs Urban Retail Spread Matrix'}</span>
+              <span>Wholesale Arat vs Urban Retail Spread Matrix</span>
             </h3>
             <span className="text-xs text-slate-400">Audited Daily Feed</span>
           </div>
@@ -525,10 +518,10 @@ export default function PriceHeatmap() {
                 <tr>
                   <th className="p-3">Market Location</th>
                   <th className="p-3">Type</th>
-                  <th className="p-3">Onion (পেঁয়াজ)</th>
-                  <th className="p-3">Potato (আলু)</th>
+                  <th className="p-3">Onion (Local)</th>
+                  <th className="p-3">Potato (Diamond)</th>
                   <th className="p-3">Broiler Chicken</th>
-                  <th className="p-3">Eggs (১ হালি)</th>
+                  <th className="p-3">Eggs (4 pcs)</th>
                   <th className="p-3 text-right">Spread vs Karwan Arat</th>
                 </tr>
               </thead>
@@ -537,7 +530,7 @@ export default function PriceHeatmap() {
                   <tr key={idx} className="hover:bg-slate-800/50">
                     <td className="p-3 font-semibold text-white flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-slate-500" />
-                      <span>{lang === 'bn' ? m.marketNameBn : m.marketName}</span>
+                      <span>{m.marketName}</span>
                     </td>
                     <td className="p-3 text-slate-400">{m.type}</td>
                     <td className="p-3">৳{m.onionPrice}</td>

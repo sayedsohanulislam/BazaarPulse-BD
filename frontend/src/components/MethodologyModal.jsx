@@ -1,10 +1,7 @@
 import React from 'react';
 import { X, Scale, Calculator, ShieldCheck, CheckCircle2, BookOpen, AlertOctagon } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 
 export default function MethodologyModal({ isOpen, onClose }) {
-  const { lang } = useLanguage();
-
   if (!isOpen) return null;
 
   return (
@@ -22,7 +19,7 @@ export default function MethodologyModal({ isOpen, onClose }) {
                 Algorithmic Integrity & Governance
               </span>
               <h3 className="text-xl font-black text-white">
-                {lang === 'bn' ? 'সরকারি ন্যায্যমূল্য নির্ধারণ পদ্ধতি ও সূত্র' : 'Government Fair Price (DAM) Methodology'}
+                Government Fair Price (DAM) Methodology
               </h3>
             </div>
           </div>
@@ -38,7 +35,7 @@ export default function MethodologyModal({ isOpen, onClose }) {
         <div className="mt-6 p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-emerald-500/30 shadow-lg">
           <div className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5 mb-2">
             <Calculator className="w-4 h-4" />
-            <span>The Statutory Pricing Equation (কৃষি বিপণন আইন ২০১৮)</span>
+            <span>The Statutory Pricing Equation (Agricultural Marketing Act 2018)</span>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-950/90 border border-slate-800 font-mono text-xs sm:text-sm text-emerald-300 overflow-x-auto">
@@ -67,14 +64,14 @@ export default function MethodologyModal({ isOpen, onClose }) {
             <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
               <span className="font-bold text-white block mb-0.5">2. Transport & Highway Tolls</span>
               <p className="text-slate-400 text-[11px]">
-                Diesel freight rate per truck divided by tonnage, plus Padma/Jamuna bridge tolls and fuel surcharge.
+                Diesel freight rate per truck divided by tonnage, plus bridge tolls and fuel surcharge.
               </p>
             </div>
 
             <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
               <span className="font-bold text-white block mb-0.5">3. Cold Storage & Transit Wastage</span>
               <p className="text-slate-400 text-[11px]">
-                Preservation charges (৳৫-৭/kg for potatoes) + 3-5% allowance for perishable spoilage during transit.
+                Preservation charges (৳5-7/kg for potatoes) + 3-5% allowance for perishable spoilage during transit.
               </p>
             </div>
 

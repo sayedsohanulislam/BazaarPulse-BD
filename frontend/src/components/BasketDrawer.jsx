@@ -8,7 +8,6 @@ import { useBazaar } from '../context/BazaarContext';
 import { Link } from 'react-router-dom';
 
 export default function BasketDrawer() {
-  const { lang, t } = useLanguage();
   const { 
     basket, 
     isBasketOpen, 
@@ -57,10 +56,10 @@ export default function BasketDrawer() {
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-white leading-tight">
-                      {lang === 'bn' ? 'ন্যায্যমূল্য বাজার ব্যাগ' : 'Citizen Fair Price Basket'}
+                      Citizen Fair Price Basket
                     </h3>
                     <p className="text-[11px] text-slate-400">
-                      {itemCount} {lang === 'bn' ? 'টি পণ্য সংযুক্ত' : 'items selected'}
+                      {itemCount} items selected
                     </p>
                   </div>
                 </div>
@@ -93,19 +92,17 @@ export default function BasketDrawer() {
                     </div>
                     <div>
                       <h4 className="text-sm font-bold text-white">
-                        {lang === 'bn' ? 'আপনার বাজার ব্যাগটি বর্তমানে খালি' : 'Your grocery basket is empty'}
+                        Your grocery basket is empty
                       </h4>
                       <p className="text-xs text-slate-400 max-w-xs mx-auto mt-1">
-                        {lang === 'bn' 
-                          ? 'ন্যায্যমূল্য গ্রিড থেকে চাল, ডাল, তেল, ডিম বা আলু যোগ করে সঠিক খরচের হিসাব দেখুন।'
-                          : 'Add staples from the Fair Price Grid to calculate real-time wholesale and retail margins.'}
+                        Add staples from the Fair Price Grid to calculate real-time wholesale and retail margins.
                       </p>
                     </div>
 
                     {/* Quick Add Suggestions */}
                     <div className="pt-2">
                       <div className="text-[11px] text-slate-400 font-semibold mb-2">
-                        {lang === 'bn' ? 'দ্রুত যোগ করুন নিত্যপণ্য:' : 'Quick Add Popular Essentials:'}
+                        Quick Add Popular Essentials:
                       </div>
                       <div className="flex flex-wrap gap-1.5 justify-center">
                         {(commodities || []).slice(0, 4).map(c => (
@@ -114,7 +111,7 @@ export default function BasketDrawer() {
                             onClick={() => addToBasket(c, 1)}
                             className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition"
                           >
-                            + {lang === 'bn' ? c.nameBn : c.name}
+                            + {c.name}
                           </button>
                         ))}
                       </div>
@@ -130,7 +127,7 @@ export default function BasketDrawer() {
                         <div className="flex justify-between items-start gap-2">
                           <div>
                             <div className="text-xs font-bold text-white">
-                              {lang === 'bn' ? c.nameBn : c.name}
+                              {c.name}
                             </div>
                             <div className="text-[10px] text-slate-400">
                               Unit: {c.unit} • DAM Fair: ৳{fairMax}
@@ -170,7 +167,7 @@ export default function BasketDrawer() {
 
                         {itemOvercharge > 0 && (
                           <div className="mt-1 text-[10px] text-rose-400 text-right font-medium">
-                            +৳{itemOvercharge} {lang === 'bn' ? 'অতিরিক্ত' : 'markup'}
+                            +৳{itemOvercharge} markup
                           </div>
                         )}
                       </div>
@@ -184,15 +181,15 @@ export default function BasketDrawer() {
                 <div className="p-4 bg-slate-950 border-t border-slate-800 space-y-3">
                   <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-1.5 text-xs">
                     <div className="flex justify-between text-slate-300">
-                      <span>{lang === 'bn' ? 'সরকারি ন্যায্যমূল্য (DAM):' : 'DAM Fair Price Total:'}</span>
+                      <span>DAM Fair Price Total:</span>
                       <strong className="text-emerald-400">৳{fairTotal.toLocaleString()}</strong>
                     </div>
                     <div className="flex justify-between text-slate-300">
-                      <span>{lang === 'bn' ? 'কাওরান বাজার পাইকারি:' : 'Karwan Wholesale Cost:'}</span>
+                      <span>Karwan Wholesale Cost:</span>
                       <span className="text-cyan-300">৳{wholesaleTotal.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between text-slate-200 font-bold pt-1 border-t border-slate-800">
-                      <span>{lang === 'bn' ? 'পাড়া-মহল্লার বর্তমান খুচরা দর:' : 'Neighborhood Retail Total:'}</span>
+                      <span>Neighborhood Retail Total:</span>
                       <span className="text-white">৳{retailTotal.toLocaleString()}</span>
                     </div>
                   </div>
@@ -202,20 +199,20 @@ export default function BasketDrawer() {
                     <div className="p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center justify-between">
                       <span className="font-semibold flex items-center gap-1.5">
                         <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0" />
-                        <span>{lang === 'bn' ? `অতিরিক্ত নেওয়া হচ্ছে: ৳${overchargeAmount} (+${overchargePct}%)` : `Overcharge: +৳${overchargeAmount} (+${overchargePct}%)`}</span>
+                        <span>{`Overcharge: +৳${overchargeAmount} (+${overchargePct}%)`}</span>
                       </span>
                       <Link 
                         to={`/whistle?chargedPrice=${retailTotal}&fairPrice=${fairTotal}`}
                         onClick={() => setIsBasketOpen(false)}
                         className="text-[11px] underline font-bold hover:text-white"
                       >
-                        {lang === 'bn' ? 'অভিযোগ' : 'Report'}
+                        Report
                       </Link>
                     </div>
                   ) : (
                     <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-1.5 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                      <span>{lang === 'bn' ? 'ন্যায্যমূল্যের সম্পূর্ণ আওতায় রয়েছে!' : 'Within official fair pricing ceiling!'}</span>
+                      <span>Within official fair pricing ceiling!</span>
                     </div>
                   )}
 
@@ -229,7 +226,7 @@ export default function BasketDrawer() {
                       className="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 flex items-center justify-center gap-1.5 transition"
                     >
                       <FileText className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>{lang === 'bn' ? 'রসিদ প্রিভিউ' : 'View Receipt'}</span>
+                      <span>View Receipt</span>
                     </button>
                     <button
                       onClick={() => {
@@ -239,7 +236,7 @@ export default function BasketDrawer() {
                       className="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition shadow-lg shadow-emerald-950/50"
                     >
                       <Printer className="w-3.5 h-3.5" />
-                      <span>{lang === 'bn' ? 'রসিদ প্রিন্ট' : 'Print Receipt'}</span>
+                      <span>Print Receipt</span>
                     </button>
                   </div>
                 </div>

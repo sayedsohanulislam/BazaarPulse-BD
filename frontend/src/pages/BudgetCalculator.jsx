@@ -93,7 +93,6 @@ function ExpenditureDonutChart({ carbsCost, proteinCost, oilCost, vegCost, total
 }
 
 export default function BudgetCalculator() {
-  const { lang, t } = useLanguage();
   const { addToBasket, setIsBasketOpen, addToast, commodities } = useBazaar();
   const [familySize, setFamilySize] = useState(4);
   const [budgetResult, setBudgetResult] = useState(null);
@@ -170,9 +169,9 @@ export default function BudgetCalculator() {
   const customSavings = customRetailTotal - customFairTotal;
 
   const handleAddAllToBasket = () => {
-    const rice = commodities?.find(c => c.name.includes('Rice')) || { name: 'Miniket Rice', nameBn: 'মিনিকেট চাল', damFairPriceMax: miniketRicePrice, retailAvgPrice: 78, unit: 'kg' };
-    const oil = commodities?.find(c => c.name.includes('Oil')) || { name: 'Soybean Oil', nameBn: 'সয়াবিন তেল', damFairPriceMax: oilPrice, retailAvgPrice: 167, unit: 'liter' };
-    const potato = commodities?.find(c => c.name.includes('Potato')) || { name: 'Granola Potato', nameBn: 'আলু', damFairPriceMax: potatoPrice, retailAvgPrice: 58, unit: 'kg' };
+    const rice = commodities?.find(c => c.name.includes('Rice')) || { name: 'Miniket Rice', damFairPriceMax: miniketRicePrice, retailAvgPrice: 78, unit: 'kg' };
+    const oil = commodities?.find(c => c.name.includes('Oil')) || { name: 'Soybean Oil', damFairPriceMax: oilPrice, retailAvgPrice: 167, unit: 'liter' };
+    const potato = commodities?.find(c => c.name.includes('Potato')) || { name: 'Granola Potato', damFairPriceMax: potatoPrice, retailAvgPrice: 58, unit: 'kg' };
     
     addToBasket(rice, riceKg);
     addToBasket(oil, oilLiters);
@@ -191,15 +190,13 @@ export default function BudgetCalculator() {
             <div>
               <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
                 <Calculator className="w-4 h-4 text-emerald-400 animate-spin" />
-                <span>{lang === 'bn' ? 'পারিবারিক নিত্যপণ্য বাজেট ও রমজান ইফতার প্ল্যানার' : 'Family Grocery Budget & Ramadan Iftar Planner'}</span>
+                <span>Family Grocery Budget & Ramadan Iftar Planner</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white">
-                {lang === 'bn' ? 'ন্যায্যমূল্যের মাসিক বাজেট ও সাশ্রয় ক্যালকুলেটর' : 'Monthly Grocery Budget & Fair Price Savings Estimator'}
+                Monthly Grocery Budget & Fair Price Savings Estimator
               </h1>
               <p className="text-sm text-slate-400 mt-1">
-                {lang === 'bn' 
-                  ? 'পরিবারের সদস্য সংখ্যা অনুযায়ী মাসিক চাল, ডাল, তেল ও মাংসের খরচ এবং পাড়া-মহল্লার বাড়তি দামের হিসাব।' 
-                  : 'Estimate monthly staples costs based on household size and compare fair government rates against open retail rates.'}
+                Estimate monthly staples costs based on household size and compare fair government rates against open retail rates.
               </p>
             </div>
 
@@ -209,7 +206,7 @@ export default function BudgetCalculator() {
                 className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg shadow-emerald-950/40 transition"
               >
                 <ShoppingCart className="w-3.5 h-3.5" />
-                <span>{lang === 'bn' ? 'সব ব্যাগে নিন' : 'Add to Fair Basket'}</span>
+                <span>Add to Fair Basket</span>
               </button>
 
               <button
@@ -224,12 +221,12 @@ export default function BudgetCalculator() {
         </div>
 
         {/* Family Size Selector & Budget Spotlight */}
-        <div className="bg-gradient-to-br from-slate-900 to-slate-850 border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
+        <div className="bg-gradient-to-br from-slate-900 to-slate-855 border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-slate-800">
             <div>
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Users className="w-5 h-5 text-emerald-400" />
-                <span>{lang === 'bn' ? 'পরিবারের সদস্য সংখ্যা নির্বাচন করুন:' : 'Select Family Household Size:'}</span>
+                <span>Select Family Household Size:</span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
                 Automatically configures monthly nutritional requirements based on BBS household surveys.
@@ -247,7 +244,7 @@ export default function BudgetCalculator() {
                       : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
                   }`}
                 >
-                  {size} {lang === 'bn' ? 'সদস্য' : 'Persons'}
+                  {size} Persons
                 </button>
               ))}
             </div>
@@ -258,7 +255,7 @@ export default function BudgetCalculator() {
             
             <div className="bg-slate-950/80 p-5 rounded-2xl border border-slate-800">
               <span className="text-[11px] text-slate-400 uppercase font-bold block">
-                {lang === 'bn' ? 'সরকারি ন্যায্যমূল্যে মাসিক খরচ' : 'Cost at Government Fair Caps'}
+                Cost at Government Fair Caps
               </span>
               <div className="text-3xl font-black text-emerald-400 mt-2">
                 ৳{customFairTotal.toLocaleString()}
@@ -268,7 +265,7 @@ export default function BudgetCalculator() {
 
             <div className="bg-slate-950/80 p-5 rounded-2xl border border-slate-800">
               <span className="text-[11px] text-slate-400 uppercase font-bold block">
-                {lang === 'bn' ? 'পাড়া-মহল্লায় বর্তমান বাজার খরচ' : 'Neighborhood Open Retail Cost'}
+                Neighborhood Open Retail Cost
               </span>
               <div className="text-3xl font-black text-rose-400 mt-2">
                 ৳{customRetailTotal.toLocaleString()}
@@ -278,7 +275,7 @@ export default function BudgetCalculator() {
 
             <div className="bg-gradient-to-br from-emerald-950/70 to-slate-950 p-5 rounded-2xl border border-emerald-500/40">
               <span className="text-[11px] text-emerald-400 uppercase font-bold block">
-                {lang === 'bn' ? 'ন্যায্যমূল্যে আপনার মাসিক সাশ্রয়' : 'Net Citizen Monthly Savings'}
+                Net Citizen Monthly Savings
               </span>
               <div className="text-3xl font-black text-white mt-2">
                 ৳{customSavings.toLocaleString()}
@@ -309,7 +306,7 @@ export default function BudgetCalculator() {
               {/* Rice */}
               <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-300">Miniket Rice (চাল):</span>
+                  <span className="text-slate-300">Miniket Rice:</span>
                   <strong className="text-emerald-400">{riceKg} kg (৳{riceKg * miniketRicePrice})</strong>
                 </div>
                 <input 
@@ -322,7 +319,7 @@ export default function BudgetCalculator() {
               {/* Oil */}
               <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-300">Soybean Oil (তেল):</span>
+                  <span className="text-slate-300">Soybean Oil:</span>
                   <strong className="text-emerald-400">{oilLiters} L (৳{oilLiters * oilPrice})</strong>
                 </div>
                 <input 
@@ -335,7 +332,7 @@ export default function BudgetCalculator() {
               {/* Lentils */}
               <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-300">Red Lentils (ডাল):</span>
+                  <span className="text-slate-300">Red Lentils:</span>
                   <strong className="text-emerald-400">{lentilsKg} kg (৳{lentilsKg * lentilPrice})</strong>
                 </div>
                 <input 
@@ -348,7 +345,7 @@ export default function BudgetCalculator() {
               {/* Potatoes */}
               <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-300">Potatoes (আলু):</span>
+                  <span className="text-slate-300">Potatoes:</span>
                   <strong className="text-emerald-400">{potatoesKg} kg (৳{potatoesKg * potatoPrice})</strong>
                 </div>
                 <input 
@@ -361,7 +358,7 @@ export default function BudgetCalculator() {
               {/* Beef */}
               <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-300">Beef Bone-in (গরুর মাংস):</span>
+                  <span className="text-slate-300">Beef Bone-in:</span>
                   <strong className="text-emerald-400">{beefKg} kg (৳{beefKg * beefPrice})</strong>
                 </div>
                 <input 
@@ -374,8 +371,8 @@ export default function BudgetCalculator() {
               {/* Eggs */}
               <div className="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-300">Eggs (ডিম হালি):</span>
-                  <strong className="text-emerald-400">{eggsHali} হালি ({eggsHali*4} pcs - ৳{eggsHali * eggPrice})</strong>
+                  <span className="text-slate-300">Farm Eggs:</span>
+                  <strong className="text-emerald-400">{eggsHali * 4} pcs (৳{eggsHali * eggPrice})</strong>
                 </div>
                 <input 
                   type="range" min="2" max="30" value={eggsHali} 
@@ -398,10 +395,10 @@ export default function BudgetCalculator() {
                 <span>Special Religious & Festive Intelligence</span>
               </div>
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <span>{lang === 'bn' ? '৩০ দিনের পবিত্র রমজান পারিবারিক ইফতার ও সেহরি বাজেট' : '30-Day Ramadan Family Iftar & Sahri Basket Audit'}</span>
+                <span>30-Day Ramadan Family Iftar & Sahri Basket Audit</span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {lang === 'bn' ? 'ছোলা, খেজুর, সয়াবিন তেল, চিনি ও পেঁয়াজের ৩০ দিনের সরকারি ন্যায্যমূল্যের সমন্বিত প্যাকেজ।' : 'Chickpeas, dates, oil, sugar, and onion bundle calculated over 30 days.'}
+                Chickpeas, dates, oil, sugar, and onion bundle calculated over 30 days.
               </p>
             </div>
 
@@ -418,7 +415,7 @@ export default function BudgetCalculator() {
               {iftarResult.bundleItems.map((item, idx) => (
                 <div key={idx} className="bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 space-y-2">
                   <div className="text-xs font-bold text-white leading-tight">
-                    {lang === 'bn' ? item.nameBn : item.name}
+                    {item.name}
                   </div>
                   <div className="text-[11px] text-slate-400">
                     Monthly: <strong>{item.thirtyDayQty} {item.unit}</strong>

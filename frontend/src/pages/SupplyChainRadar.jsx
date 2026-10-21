@@ -71,12 +71,12 @@ export default function SupplyChainRadar() {
   const middlemanSharePct = (((totalSimulatedRetailPrice - farmerBasePrice) / totalSimulatedRetailPrice) * 100).toFixed(1);
 
   const marginBreakdown = [
-    { label: 'Farmer Direct Gate Price (কৃষকের মূল্য)', bdt: farmerBasePrice, color: 'bg-emerald-500', desc: 'Received by Bogura/Faridpur grower' },
-    { label: 'Sorting, Sacks & Field Labor (শ্রমিক ও বস্তা)', bdt: laborCost, color: 'bg-teal-500', desc: 'Gunny bags and loading workers' },
-    { label: 'Highway Trucking Diesel (ট্রাক ভাড়া ও জ্বালানি)', bdt: freightCost, color: 'bg-blue-500', desc: 'Freight from North Bengal to Dhaka' },
-    { label: 'Bridge Tolls & Market Extortion (টোল ও চাঁদাবাজি)', bdt: tollAndExtortionCost, color: 'bg-rose-500', desc: 'Bridge electronic toll & unregulated local doles' },
-    { label: 'Wholesale Aratdar Commission (আড়তদারি কমিশন)', bdt: aratdarCommissionCost, color: 'bg-amber-500', desc: 'Middleman commission at Karwan Bazar' },
-    { label: 'Retailer Profit & Rot Wastage (খুচরা লাভ ও পচন)', bdt: retailProfitAndWastage, color: 'bg-purple-500', desc: 'Local neighborhood stall markup' }
+    { label: 'Farmer Direct Gate Price', bdt: farmerBasePrice, color: 'bg-emerald-500', desc: 'Received by Bogura/Faridpur grower' },
+    { label: 'Sorting, Sacks & Field Labor', bdt: laborCost, color: 'bg-teal-500', desc: 'Gunny bags and loading workers' },
+    { label: 'Highway Trucking Diesel', bdt: freightCost, color: 'bg-blue-500', desc: 'Freight from North Bengal to Dhaka' },
+    { label: 'Bridge Tolls & Market Extortion', bdt: tollAndExtortionCost, color: 'bg-rose-500', desc: 'Bridge electronic toll & unregulated local doles' },
+    { label: 'Wholesale Aratdar Commission', bdt: aratdarCommissionCost, color: 'bg-amber-500', desc: 'Middleman commission at Karwan Bazar' },
+    { label: 'Retailer Profit & Rot Wastage', bdt: retailProfitAndWastage, color: 'bg-purple-500', desc: 'Local neighborhood stall markup' }
   ];
 
   return (
@@ -89,15 +89,13 @@ export default function SupplyChainRadar() {
             <div>
               <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider mb-1">
                 <Warehouse className="w-4 h-4 text-amber-400" />
-                <span>{lang === 'bn' ? 'সাপ্লাই চেইন বিশ্লেষণ ও কোল্ড স্টোরেজ নজরদারি' : 'Supply Chain Freight & Cold Storage Hoarding Radar'}</span>
+                <span>Supply Chain Freight & Cold Storage Hoarding Radar</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white">
-                {lang === 'bn' ? 'কৃষকের ২০ টাকা কেন ঢাকায় ৬০ টাকা হয়?' : 'Where Does the ৳40 Middleman Margin Go?'}
+                Where Does the ৳40 Middleman Margin Go?
               </h1>
               <p className="text-sm text-slate-400 mt-1">
-                {lang === 'bn' 
-                  ? 'কৃষক থেকে খুচরা ক্রেতার হাত পর্যন্ত পরিবহন খরচ, টোল, চাঁদাবাজি এবং মুন্সীগঞ্জ-বগুড়ার আলু হিমাগার অডিট।' 
-                  : 'Transparent cost dissection of freight, highway tolls, arat commissions, and cold storage inventories.'}
+                Transparent cost dissection of freight, highway tolls, arat commissions, and cold storage inventories.
               </p>
             </div>
 
@@ -106,7 +104,7 @@ export default function SupplyChainRadar() {
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-              <span>{lang === 'bn' ? 'রিফ্রেশ' : 'Refresh Telemetry'}</span>
+              <span>Refresh Telemetry</span>
             </button>
           </div>
         </div>
@@ -120,10 +118,10 @@ export default function SupplyChainRadar() {
                 <span>Interactive Policy Simulator</span>
               </div>
               <h3 className="text-lg font-bold text-white">
-                {lang === 'bn' ? 'সাপ্লাই চেইন খরচ সিমুলেটর: চাঁদাবাজি ও সিন্ডিকেট কমালে দাম কত হবে?' : 'Policy Impact Simulator: What If We Cut Tolls & Syndicate Extortion?'}
+                Policy Impact Simulator: What If We Cut Tolls & Syndicate Extortion?
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {lang === 'bn' ? 'স্লাইডার পরিবর্তন করে দেখুন কিভাবে পরিবহন ও মধ্যস্বত্বভোগীদের ফি ঢাকার খুচরা দামকে প্রভাবিত করে।' : 'Adjust logistics and aratdar multipliers to calculate simulated retail prices and farmer profit shares.'}
+                Adjust logistics and aratdar multipliers to calculate simulated retail prices and farmer profit shares.
               </p>
             </div>
 
@@ -253,14 +251,14 @@ export default function SupplyChainRadar() {
             <div>
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 <Warehouse className="w-5 h-5 text-cyan-400" />
-                <span>{lang === 'bn' ? 'মুন্সীগঞ্জ ও উত্তরবঙ্গ আলু হিমাগার কৃত্রিম সংকট নজরদারি' : 'Munshiganj & North Bengal Cold Storage Hoarding Surveillance'}</span>
+                <span>Munshiganj & North Bengal Cold Storage Hoarding Surveillance</span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {lang === 'bn' ? 'গেট রিলিজ প্রাইস (৳২৭-৩২) বনাম ঢাকার খুচরা মূল্যের ব্যবধান নিরীক্ষা' : 'Auditing gate release rates vs Dhaka retail price exploitation'}
+                Auditing gate release rates vs Dhaka retail price exploitation
               </p>
             </div>
             <span className="text-xs text-slate-400 bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
-              {coldStorages.length} {lang === 'bn' ? 'টি হিমাগার নিরীক্ষিত' : 'facilities audited'}
+              {coldStorages.length} facilities audited
             </span>
           </div>
 

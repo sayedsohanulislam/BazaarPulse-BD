@@ -64,7 +64,7 @@ export default function Navbar({ onOpenAuth }) {
 
           {gainers.slice(0, 2).map((item, idx) => (
             <span key={idx} className="border-l border-slate-800 pl-3 hidden md:flex items-center gap-1 text-slate-300">
-              <span>{lang === 'bn' ? item.nameBn : item.name}:</span>
+              <span>{item.name}:</span>
               <strong className="text-white">৳{item.retailAvgPrice}/{item.unit}</strong>
               <span className={`text-[10px] font-bold flex items-center ${item.deltaPercent >= 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
                 {item.deltaPercent >= 0 ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
@@ -74,7 +74,7 @@ export default function Navbar({ onOpenAuth }) {
           ))}
 
           <span className="border-l border-slate-800 pl-3 hidden xl:inline text-amber-400">
-            {lang === 'bn' ? 'কাওরান বাজার পাইকারি রেট সক্রিয়' : 'Karwan Wholesale Baseline Active'}
+            Karwan Wholesale Baseline Active
           </span>
 
           <span className="border-l border-slate-800 pl-3 hidden lg:flex items-center gap-1.5 font-mono text-[11px] text-slate-400">
@@ -101,14 +101,6 @@ export default function Navbar({ onOpenAuth }) {
           >
             <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin text-emerald-400' : ''}`} />
             <span className="hidden sm:inline">{isRefreshing ? 'Syncing...' : 'Sync'}</span>
-          </button>
-
-          <button
-            onClick={toggleLanguage}
-            className="bg-slate-800 hover:bg-slate-700 text-amber-400 px-2 py-0.5 rounded-lg border border-slate-700 flex items-center gap-1 text-[11px] font-bold transition"
-          >
-            <Globe className="w-3 h-3" />
-            <span>{lang === 'en' ? 'বাংলা' : 'EN'}</span>
           </button>
         </div>
       </div>
@@ -228,7 +220,7 @@ export default function Navbar({ onOpenAuth }) {
         <div className="xl:hidden bg-slate-950/95 border-b border-slate-800 px-4 py-4 space-y-3 animate-fadeIn backdrop-blur-lg max-h-[80vh] overflow-y-auto">
           
           <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-1">
-            {lang === 'bn' ? 'সকল প্ল্যাটফর্ম সেবা ও ফিচার' : 'Platform Modules & Portals'}
+            Platform Modules & Portals
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -277,7 +269,7 @@ export default function Navbar({ onOpenAuth }) {
           {/* Quick DNCRP Hotline in Mobile Drawer */}
           <div className="p-3 rounded-xl bg-rose-950/40 border border-rose-500/30 flex justify-between items-center">
             <span className="text-xs font-bold text-rose-200">
-              {lang === 'bn' ? 'ভোক্তা অধিকার অভিযোগ হটলাইন' : 'DNCRP Complaint Speed Dial'}
+              DNCRP Complaint Speed Dial
             </span>
             <a
               href="tel:13346"

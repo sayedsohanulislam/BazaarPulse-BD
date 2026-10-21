@@ -16,7 +16,7 @@ exports.getMarketSpread = async (req, res) => {
     const spreads = [
       {
         marketName: 'Karwan Bazar Arat (Wholesale Benchmark)',
-        marketNameBn: 'কাওরান বাজার পাইকারি আড়ত',
+        marketNameBn: 'Karwan Bazar Wholesale Arat',
         district: 'Dhaka',
         type: 'WHOLESALE_ARAT',
         onionPrice: 80,
@@ -27,7 +27,7 @@ exports.getMarketSpread = async (req, res) => {
       },
       {
         marketName: 'Dhanmondi Kachabazar',
-        marketNameBn: 'ধানমন্ডি কাঁচাবাজার',
+        marketNameBn: 'Dhanmondi Kachabazar',
         district: 'Dhaka',
         type: 'RETAIL',
         onionPrice: 110,
@@ -39,7 +39,7 @@ exports.getMarketSpread = async (req, res) => {
       },
       {
         marketName: 'Mirpur-1 Kitchen Market',
-        marketNameBn: 'মিরপুর-১ কাঁচাবাজার',
+        marketNameBn: 'Mirpur-1 Kitchen Market',
         district: 'Dhaka',
         type: 'RETAIL',
         onionPrice: 105,
@@ -51,7 +51,7 @@ exports.getMarketSpread = async (req, res) => {
       },
       {
         marketName: 'Uttara Sector-7 Bazar',
-        marketNameBn: 'উত্তরা ৭ নম্বর সেক্টর বাজার',
+        marketNameBn: 'Uttara Sector-7 Bazar',
         district: 'Dhaka',
         type: 'RETAIL',
         onionPrice: 115,
@@ -63,7 +63,7 @@ exports.getMarketSpread = async (req, res) => {
       },
       {
         marketName: 'Chattogram Reazuddin Bazar',
-        marketNameBn: 'চট্টগ্রাম রিয়াজউদ্দিন বাজার',
+        marketNameBn: 'Chattogram Reazuddin Bazar',
         district: 'Chattogram',
         type: 'REGIONAL_HUB',
         onionPrice: 102,
@@ -172,12 +172,12 @@ exports.calcIftarBasket = async (req, res) => {
   try {
     // Ramadan Essentials Bundle (30 Days)
     const bundle = [
-      { item: 'Chickpeas (ছোলা)', qty: '5 kg', fairRate: 95, marketRate: 115 },
-      { item: 'Dates / Khejoor (খেজুর - সাধারণ)', qty: '2 kg', fairRate: 280, marketRate: 380 },
-      { item: 'Gram Flour / Besan (বেসন)', qty: '4 kg', fairRate: 110, marketRate: 135 },
-      { item: 'Soybean Oil (সয়াবিন তেল)', qty: '5 L', fairRate: 167, marketRate: 175 },
-      { item: 'Refined Sugar (চিনি)', qty: '4 kg', fairRate: 128, marketRate: 135 },
-      { item: 'Onion (পেঁয়াজ - পেঁয়াজুর জন্য)', qty: '8 kg', fairRate: 88, marketRate: 110 }
+      { item: 'Chickpeas', qty: '5 kg', fairRate: 95, marketRate: 115 },
+      { item: 'Dates (Regular)', qty: '2 kg', fairRate: 280, marketRate: 380 },
+      { item: 'Gram Flour (Besan)', qty: '4 kg', fairRate: 110, marketRate: 135 },
+      { item: 'Soybean Oil', qty: '5 L', fairRate: 167, marketRate: 175 },
+      { item: 'Refined Sugar', qty: '4 kg', fairRate: 128, marketRate: 135 },
+      { item: 'Onion', qty: '8 kg', fairRate: 88, marketRate: 110 }
     ];
 
     let fairSum = 0;
@@ -200,7 +200,7 @@ exports.calcIftarBasket = async (req, res) => {
     res.json({
       success: true,
       data: {
-        bundleName: 'Ramadan Family Iftar Essentials (রমজান ইফতার প্যাকেজ)',
+        bundleName: 'Ramadan Family Iftar Essentials',
         totalFairCost: fairSum,
         totalMarketCost: marketSum,
         totalSavings: marketSum - fairSum,

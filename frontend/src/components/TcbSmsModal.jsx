@@ -4,7 +4,6 @@ import { useLanguage } from '../context/LanguageContext';
 import { useBazaar } from '../context/BazaarContext';
 
 export default function TcbSmsModal({ isOpen, onClose }) {
-  const { lang } = useLanguage();
   const { addToast } = useBazaar();
   const [phone, setPhone] = useState('');
   const [thana, setThana] = useState('Mirpur');
@@ -20,7 +19,7 @@ export default function TcbSmsModal({ isOpen, onClose }) {
       return;
     }
 
-    const smsMessage = `[TCB-ALERTS] ওএমএস খোলা ট্রাক #DH-14 ${thana} পয়েন্টে পৌঁছেছে। সয়াবিন তেল ৳১০০/লি, মসুর ডাল ৳৬০/কেজি, চিনি ৳৭০/কেজি। ডিলার ফোন: 01712-445566। ভোক্তা অধিকার: ১৩৩৪৬।`;
+    const smsMessage = `[TCB-ALERTS] OMS Subsidized Truck #DH-14 has reached ${thana} point. Soybean Oil Tk 100/L, Lentils Tk 60/kg, Sugar Tk 70/kg. Dealer Phone: 01712-445566. Consumer Rights Hotline: 13346.`;
     
     setSimulatedSms(smsMessage);
     setSubscribed(true);
@@ -39,10 +38,10 @@ export default function TcbSmsModal({ isOpen, onClose }) {
             </div>
             <div>
               <h3 className="text-base font-bold text-white leading-tight">
-                {lang === 'bn' ? 'টিসিবি ট্রাক আগমনের ফ্রি এসএমএস অ্যালার্ট' : 'Free TCB Truck Arrival SMS Alerts'}
+                Free TCB Truck Arrival SMS Alerts
               </h3>
               <p className="text-[11px] text-slate-400">
-                {lang === 'bn' ? 'আপনার এলাকায় ট্রাক আসার সাথে সাথে ফোনে নোটিফিকেশন পান' : 'Instant dispatch alerts straight to your phone'}
+                Instant dispatch alerts straight to your phone
               </p>
             </div>
           </div>
@@ -56,26 +55,26 @@ export default function TcbSmsModal({ isOpen, onClose }) {
           <form onSubmit={handleSubscribe} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                {lang === 'bn' ? 'আপনার থানা বা এলাকা নির্বাচন করুন' : 'Select Thana / Location'}
+                Select Thana / Location
               </label>
               <select
                 value={thana}
                 onChange={(e) => setThana(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400"
               >
-                <option value="Mirpur">Mirpur (মিরপুর)</option>
-                <option value="Dhanmondi">Dhanmondi (ধানমন্ডি)</option>
-                <option value="Farmgate">Farmgate / Tejgaon (ফার্মগেট)</option>
-                <option value="Uttara">Uttara (উত্তরা)</option>
-                <option value="Jatrabari">Jatrabari (যাত্রাবাড়ী)</option>
-                <option value="Mohammadpur">Mohammadpur (মোহাম্মদপুর)</option>
-                <option value="Gulshan">Gulshan / Badda (গুলশান / বাড্ডা)</option>
+                <option value="Mirpur">Mirpur</option>
+                <option value="Dhanmondi">Dhanmondi</option>
+                <option value="Farmgate">Farmgate / Tejgaon</option>
+                <option value="Uttara">Uttara</option>
+                <option value="Jatrabari">Jatrabari</option>
+                <option value="Mohammadpur">Mohammadpur</option>
+                <option value="Gulshan">Gulshan / Badda</option>
               </select>
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                {lang === 'bn' ? 'মোবাইল নম্বর (১১ ডিজিট)' : 'Mobile Phone Number'}
+                Mobile Phone Number (11 Digits)
               </label>
               <input
                 type="tel"
@@ -90,9 +89,7 @@ export default function TcbSmsModal({ isOpen, onClose }) {
             <div className="p-3 bg-cyan-950/40 rounded-xl border border-cyan-500/30 text-[11px] text-cyan-300 flex items-start gap-2">
               <ShieldCheck className="w-4 h-4 shrink-0 text-cyan-400 mt-0.5" />
               <span>
-                {lang === 'bn' 
-                  ? 'এটি সরকারি ভর্তুকি পণ্য নিশ্চিতকরণের একটি ফ্রি নাগরিক সেবা। আপনার নম্বর নিরাপদ রাখা হবে।' 
-                  : 'Free civic service powered by TCB OMS telematics. No promotional spam.'}
+                Free civic service powered by TCB OMS telematics. No promotional spam.
               </span>
             </div>
 
@@ -101,7 +98,7 @@ export default function TcbSmsModal({ isOpen, onClose }) {
               className="w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-cyan-950/50 transition flex items-center justify-center gap-1.5"
             >
               <Send className="w-3.5 h-3.5" />
-              <span>{lang === 'bn' ? 'ফ্রি এসএমএস চালু করুন' : 'Activate Free Alerts'}</span>
+              <span>Activate Free Alerts</span>
             </button>
           </form>
         ) : (
@@ -112,10 +109,10 @@ export default function TcbSmsModal({ isOpen, onClose }) {
 
             <div>
               <h4 className="text-sm font-bold text-white">
-                {lang === 'bn' ? 'এসএমএস অ্যালার্ট সফলভাবে সক্রিয় হয়েছে!' : 'SMS Subscription Activated!'}
+                SMS Subscription Activated!
               </h4>
               <p className="text-xs text-slate-400 mt-1">
-                {phone} নম্বরে {thana} পয়েন্টের ট্রাক ছাড়ার সাথে সাথে রিয়েল-টাইম বার্তা পৌঁছাবে।
+                Real-time SMS alerts will be dispatched to {phone} as soon as trucks arrive in {thana}.
               </p>
             </div>
 

@@ -55,8 +55,6 @@ const createTruckIcon = (status) => {
 };
 
 export default function TcbMap({ trucks = [], selectedTruck = null, onSelectTruck }) {
-  const { lang } = useLanguage();
-
   // Default center: Dhaka city center (Kawran Bazar / Farmgate latitude/longitude)
   const defaultCenter = [23.7509, 90.3934];
   const center = selectedTruck?.coordinates 
@@ -99,7 +97,7 @@ export default function TcbMap({ trucks = [], selectedTruck = null, onSelectTruc
                   <div className="flex justify-between items-start gap-1 pb-1.5 border-b border-slate-700">
                     <div>
                       <h4 className="font-bold text-xs text-white leading-tight">
-                        {lang === 'bn' ? truck.locationNameBn : truck.locationName}
+                        {truck.locationName}
                       </h4>
                       <p className="text-[10px] text-slate-400 mt-0.5">
                         Thana: {truck.thana}, {truck.district}
@@ -118,23 +116,23 @@ export default function TcbMap({ trucks = [], selectedTruck = null, onSelectTruc
                   {/* Stock Levels */}
                   <div className="my-2 space-y-1 text-[11px] text-slate-300">
                     <div className="flex justify-between">
-                      <span>Soybean Oil (তেল):</span>
+                      <span>Soybean Oil:</span>
                       <strong className={truck.stockLevels.soybeanOilLiters < 50 ? 'text-rose-400' : 'text-emerald-400'}>
                         {truck.stockLevels.soybeanOilLiters}L
                       </strong>
                     </div>
                     <div className="flex justify-between">
-                      <span>Lentils (মসুর ডাল):</span>
+                      <span>Lentils:</span>
                       <strong className={truck.stockLevels.lentilsKg < 50 ? 'text-rose-400' : 'text-emerald-400'}>
                         {truck.stockLevels.lentilsKg}kg
                       </strong>
                     </div>
                     <div className="flex justify-between">
-                      <span>Sugar (চিনি):</span>
+                      <span>Sugar:</span>
                       <strong className="text-slate-200">{truck.stockLevels.sugarKg}kg</strong>
                     </div>
                     <div className="flex justify-between">
-                      <span>Rice (চাল):</span>
+                      <span>Rice:</span>
                       <strong className="text-slate-200">{truck.stockLevels.riceKg}kg</strong>
                     </div>
                   </div>

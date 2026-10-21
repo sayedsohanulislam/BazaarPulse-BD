@@ -24,8 +24,8 @@ By cross-referencing statutory **Department of Agricultural Marketing (DAM)** fa
 
 | # | Section | Interactivity / Dynamic State | Primary Role |
 |---|---|---|---|
-| **1** | **Navbar** | ⚡ **Dynamic** | Live BST digital clock, language switcher (`EN / বাংলা`), global `Ctrl+K` command search, fair basket slide-out drawer, mobile drawer. |
-| **2** | **Hero** | ⚡ **Dynamic** | Front-and-center search with dual-language autocomplete (`CommoditySearchAutocomplete`), live Karwan Bazar ticker tape, quick CTAs. |
+| **1** | **Navbar** | ⚡ **Dynamic** | Live BST digital clock, global `Ctrl+K` command search, fair basket slide-out drawer, mobile drawer. |
+| **2** | **Hero** | ⚡ **Dynamic** | Front-and-center search with autocomplete (`CommoditySearchAutocomplete`), live Karwan Bazar ticker tape, quick CTAs. |
 | **3** | **Trusted By / Stats** | ⚡ **Dynamic** | Official citations (DAM, TCB, DNCRP, BBS) + real-time counters (16+ commodities, 64 districts, 142+ verified reports, 15s telemetry cycle). |
 | **4** | **Features & Civic Services** | ⚡ **Dynamic** | Interactive **Market Stability Sentinel Radial Gauge (0-100)**, instant price gouging checker, and interactive 8-division telemetry selector. |
 | **5** | **About / Why Choose Us** | Static / Informative | Architectural pillars: algorithmic fair benchmarking, geospatial TCB truck accessibility, and DNCRP Section 40 legal recourse. |

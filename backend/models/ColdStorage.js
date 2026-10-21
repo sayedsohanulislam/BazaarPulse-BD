@@ -4,7 +4,7 @@ const coldStorageSchema = new mongoose.Schema({
   facilityName: { type: String, required: true },
   district: { type: String, required: true },
   upazila: { type: String, required: true },
-  commodityStored: { type: String, default: 'Potato (আলু)' },
+  commodityStored: { type: String, default: 'Potato' },
   capacityBags: { type: Number, required: true },
   currentStockBags: { type: Number, required: true },
   occupancyPercent: { type: Number, default: 85 },

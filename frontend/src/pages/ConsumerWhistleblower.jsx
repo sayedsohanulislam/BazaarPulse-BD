@@ -10,7 +10,6 @@ import { useBazaar } from '../context/BazaarContext';
 import { whistleApi } from '../services/api';
 
 export default function ConsumerWhistleblower() {
-  const { lang, t } = useLanguage();
   const { addToast } = useBazaar();
   const [searchParams] = useSearchParams();
   const [reports, setReports] = useState([]);
@@ -28,7 +27,7 @@ export default function ConsumerWhistleblower() {
     district: 'Dhaka',
     shopNumberOrSeller: '',
     violationType: 'PRICE_GOUGING',
-    commodityInvolved: 'Local Onion (দেশি পেঁয়াজ)',
+    commodityInvolved: 'Local Onion',
     chargedPrice: 120,
     governmentCapPrice: 95,
     gpsCoordinates: '23.8103, 90.4125',
@@ -83,7 +82,7 @@ export default function ConsumerWhistleblower() {
             ...prev,
             gpsCoordinates: `${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`
           }));
-          addToast(lang === 'bn' ? 'জিপিএস স্থানাঙ্ক সংযুক্ত হয়েছে!' : 'GPS coordinates captured!', 'success');
+          addToast('GPS coordinates captured!', 'success');
         },
         () => addToast('Could not fetch GPS coordinates', 'error')
       );
@@ -105,7 +104,7 @@ export default function ConsumerWhistleblower() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.marketName) {
-      alert(lang === 'bn' ? 'বাজারের নাম লিখুন' : 'Please provide market name');
+      alert('Please provide market name');
       return;
     }
     setSubmitting(true);
@@ -120,7 +119,7 @@ export default function ConsumerWhistleblower() {
           district: 'Dhaka',
           shopNumberOrSeller: '',
           violationType: 'PRICE_GOUGING',
-          commodityInvolved: 'Local Onion (দেশি পেঁয়াজ)',
+          commodityInvolved: 'Local Onion',
           chargedPrice: 120,
           governmentCapPrice: 95,
           gpsCoordinates: '23.8103, 90.4125',
@@ -169,15 +168,13 @@ export default function ConsumerWhistleblower() {
             <div>
               <div className="flex items-center gap-2 text-rose-400 text-xs font-bold uppercase tracking-wider mb-1">
                 <AlertOctagon className="w-4 h-4 text-rose-400 animate-pulse" />
-                <span>{lang === 'bn' ? 'জাতীয় ভোক্তা অধিকার সংরক্ষণ অধিদপ্তর (DNCRP) অভিযোগ পোর্টাল' : 'National Directorate of Consumer Rights Protection (DNCRP)'}</span>
+                <span>National Directorate of Consumer Rights Protection (DNCRP)</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white">
-                {lang === 'bn' ? 'নিত্যপণ্যের অতিরিক্ত দাম ও ওজনে কারচুপির অভিযোগ' : 'Citizen Anti-Gouging & Fraud Whistleblower Portal'}
+                Citizen Anti-Gouging & Fraud Whistleblower Portal
               </h1>
               <p className="text-sm text-slate-400 mt-1">
-                {lang === 'bn' 
-                  ? 'কাওরান বাজার বা এলাকার বাজারে নির্ধারিত ন্যায্যমূল্যের বেশি দাম নিলে কিংবা ওজনে কম দিলে তাৎক্ষণিক অভিযোগ করুন।' 
-                  : 'File anonymous or verified evidence against unfair price gouging, weight manipulation, and refusal to sell.'}
+                File anonymous or verified evidence against unfair price gouging, weight manipulation, and refusal to sell.
               </p>
             </div>
 
@@ -196,10 +193,10 @@ export default function ConsumerWhistleblower() {
           <div className="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-emerald-950/80 border border-emerald-500/50 rounded-2xl p-6 shadow-2xl space-y-3">
             <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
               <CheckCircle2 className="w-5 h-5" />
-              <span>{lang === 'bn' ? 'অভিযোগ সফলভাবে নিবন্ধিত হয়েছে!' : 'Complaint Recorded & Dispatched to Task Force!'}</span>
+              <span>Complaint Recorded & Dispatched to Task Force!</span>
             </div>
             <p className="text-xs text-slate-300">
-              {lang === 'bn' ? 'আপনার ইউনিক ট্র্যাকিং টোকেনটি সংরক্ষণ করুন। নির্বাহী ম্যাজিস্ট্রেট দ্রুত তদন্তে নামবেন।' : 'Save your unique tracking token below to monitor mobile court enforcement progress.'}
+              Save your unique tracking token below to monitor mobile court enforcement progress.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <span className="font-mono text-base font-black px-4 py-2 rounded-xl bg-slate-950 text-emerald-300 border border-emerald-500/40 select-all">
@@ -225,7 +222,7 @@ export default function ConsumerWhistleblower() {
             <div className="flex justify-between items-center pb-3 border-b border-slate-800">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Scale className="w-4 h-4 text-emerald-400" />
-                <span>{lang === 'bn' ? 'অভিযোগ ফরম পূরণ করুন' : 'Submit Evidentiary Complaint Form'}</span>
+                <span>Submit Evidentiary Complaint Form</span>
               </h3>
               <span className="text-[11px] text-slate-400 flex items-center gap-1">
                 <Lock className="w-3 h-3 text-emerald-400" />
@@ -239,12 +236,12 @@ export default function ConsumerWhistleblower() {
                 {/* Market Name */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 mb-1">
-                    {lang === 'bn' ? 'বাজারের নাম *' : 'Market Location Name *'}
+                    Market Location Name *
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder={lang === 'bn' ? 'যেমন: মিরপুর-১ কাঁচাবাজার' : 'e.g. Mirpur-1 Kitchen Market'}
+                    placeholder="e.g. Mirpur-1 Kitchen Market"
                     value={form.marketName}
                     onChange={(e) => setForm({ ...form, marketName: e.target.value })}
                     className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
@@ -254,30 +251,30 @@ export default function ConsumerWhistleblower() {
                 {/* District */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 mb-1">
-                    {lang === 'bn' ? 'জেলা' : 'District'}
+                    District
                   </label>
                   <select
                     value={form.district}
                     onChange={(e) => setForm({ ...form, district: e.target.value })}
                     className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
                   >
-                    <option value="Dhaka">Dhaka (ঢাকা)</option>
-                    <option value="Chattogram">Chattogram (চট্টগ্রাম)</option>
-                    <option value="Bogura">Bogura (বগুড়া)</option>
-                    <option value="Munshiganj">Munshiganj (মুন্সীগঞ্জ)</option>
-                    <option value="Khulna">Khulna (খুলনা)</option>
-                    <option value="Rajshahi">Rajshahi (রাজশাহী)</option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Chattogram">Chattogram</option>
+                    <option value="Bogura">Bogura</option>
+                    <option value="Munshiganj">Munshiganj</option>
+                    <option value="Khulna">Khulna</option>
+                    <option value="Rajshahi">Rajshahi</option>
                   </select>
                 </div>
 
                 {/* Stall Number / Seller */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 mb-1">
-                    {lang === 'bn' ? 'দোকান নং / বিক্রেতার নাম' : 'Shop No. / Stall Row / Seller'}
+                    Shop No. / Stall Row / Seller
                   </label>
                   <input
                     type="text"
-                    placeholder={lang === 'bn' ? 'যেমন: ভাই ভাই স্টোর (শেড ৩)' : 'e.g. Bhai Bhai Traders (Row #4)'}
+                    placeholder="e.g. Bhai Bhai Traders (Row #4)"
                     value={form.shopNumberOrSeller}
                     onChange={(e) => setForm({ ...form, shopNumberOrSeller: e.target.value })}
                     className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
@@ -287,24 +284,24 @@ export default function ConsumerWhistleblower() {
                 {/* Violation Type */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 mb-1">
-                    {lang === 'bn' ? 'অভিযোগের ধরণ' : 'Violation Category'}
+                    Violation Category
                   </label>
                   <select
                     value={form.violationType}
                     onChange={(e) => setForm({ ...form, violationType: e.target.value })}
                     className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
                   >
-                    <option value="PRICE_GOUGING">Price Gouging (অতিরিক্ত দাম নেওয়া)</option>
-                    <option value="DIGITAL_SCALE_FRAUD">Digital Scale Fraud (ওজনে কারচুপি)</option>
-                    <option value="REFUSAL_TO_SELL">Refusal to Sell / Hoarding (পণ্য লুকিয়ে রাখা)</option>
-                    <option value="CHEMICAL_ADULTERATION">Chemical Adulteration (ফরমালিন/ভেজাল)</option>
+                    <option value="PRICE_GOUGING">Price Gouging</option>
+                    <option value="DIGITAL_SCALE_FRAUD">Digital Scale Fraud</option>
+                    <option value="REFUSAL_TO_SELL">Refusal to Sell / Hoarding</option>
+                    <option value="CHEMICAL_ADULTERATION">Chemical Adulteration / Formalin</option>
                   </select>
                 </div>
 
                 {/* Commodity Involved */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 mb-1">
-                    {lang === 'bn' ? 'সম্পৃক্ত পণ্য' : 'Commodity Involved'}
+                    Commodity Involved
                   </label>
                   <input
                     type="text"
@@ -318,7 +315,7 @@ export default function ConsumerWhistleblower() {
                 <div className="grid grid-cols-2 gap-2">
                   <div>
                     <label className="block text-xs font-semibold text-slate-300 mb-1">
-                      {lang === 'bn' ? 'দোকানি দাম চেয়েছে' : 'Charged (BDT)'}
+                      Charged (BDT)
                     </label>
                     <input
                       type="number"
@@ -329,7 +326,7 @@ export default function ConsumerWhistleblower() {
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-slate-300 mb-1">
-                      {lang === 'bn' ? 'সরকারি দাম' : 'Fair Cap'}
+                      Fair Cap
                     </label>
                     <input
                       type="number"
@@ -344,7 +341,7 @@ export default function ConsumerWhistleblower() {
                 <div>
                   <div className="flex justify-between items-center mb-1">
                     <label className="text-xs font-semibold text-slate-300">
-                      {lang === 'bn' ? 'জিপিএস অবস্থান' : 'GPS Coordinates'}
+                      GPS Coordinates
                     </label>
                     <button
                       type="button"
@@ -352,7 +349,7 @@ export default function ConsumerWhistleblower() {
                       className="text-[10px] text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-0.5"
                     >
                       <MapPin className="w-3 h-3" />
-                      <span>{lang === 'bn' ? 'লাইভ জিপিএস নিন' : 'Detect GPS'}</span>
+                      <span>Detect GPS</span>
                     </button>
                   </div>
                   <input
@@ -366,7 +363,7 @@ export default function ConsumerWhistleblower() {
                 {/* Reporter Phone (Optional) */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 mb-1">
-                    {lang === 'bn' ? 'মোবাইল নম্বর (ঐচ্ছিক)' : 'Phone Number (Optional)'}
+                    Phone Number (Optional)
                   </label>
                   <input
                     type="text"
@@ -382,7 +379,7 @@ export default function ConsumerWhistleblower() {
               {/* Photographic Evidence Attachment */}
               <div className="pt-2">
                 <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  {lang === 'bn' ? 'প্রমাণস্বরূপ রসিদ বা পণ্যের ছবি (ঐচ্ছিক)' : 'Attach Photograph of Scale / Stall / Receipt (Optional)'}
+                  Attach Photograph of Scale / Stall / Receipt (Optional)
                 </label>
                 <div className="flex items-center gap-3">
                   <label className="cursor-pointer px-4 py-2 rounded-xl bg-slate-950 hover:bg-slate-850 border border-slate-700 text-xs font-semibold text-slate-300 flex items-center gap-1.5 transition">
@@ -413,7 +410,7 @@ export default function ConsumerWhistleblower() {
                   className="rounded bg-slate-950 border-slate-700 text-emerald-600 focus:ring-0"
                 />
                 <label htmlFor="anonymousCheck" className="text-xs text-slate-300 cursor-pointer">
-                  {lang === 'bn' ? 'আমার পরিচয় ১০০% গোপন রাখুন (বেনামি অভিযোগ)' : 'Keep my identity 100% anonymous (Protected under Whistleblower Act)'}
+                  Keep my identity 100% anonymous (Protected under Whistleblower Act)
                 </label>
               </div>
 
@@ -423,7 +420,7 @@ export default function ConsumerWhistleblower() {
                 className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xl shadow-emerald-950/50 flex items-center justify-center gap-2 transition disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
-                <span>{submitting ? 'Submitting to DNCRP...' : (lang === 'bn' ? 'অভিযোগ দাখিল করুন' : 'Submit Formal Report to DNCRP')}</span>
+                <span>{submitting ? 'Submitting to DNCRP...' : 'Submit Formal Report to DNCRP'}</span>
               </button>
             </form>
           </div>
@@ -435,13 +432,13 @@ export default function ConsumerWhistleblower() {
             <div className="bg-slate-900/80 border border-slate-700/80 rounded-2xl p-5 shadow-xl space-y-3">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <Search className="w-4 h-4 text-cyan-400" />
-                <span>{lang === 'bn' ? 'পূর্বে দায়েরকৃত অভিযোগের অগ্রগতি দেখুন' : 'Track Existing Complaint Status'}</span>
+                <span>Track Existing Complaint Status</span>
               </h3>
               
               <div className="relative">
                 <input
                   type="text"
-                  placeholder={lang === 'bn' ? 'টোকেন নং দিন (যেমন: BZ-REP-91021)...' : 'Enter Token (e.g. BZ-REP-91021)...'}
+                  placeholder="Enter Token (e.g. BZ-REP-91021)..."
                   value={searchToken}
                   onChange={(e) => setSearchToken(e.target.value)}
                   className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400"

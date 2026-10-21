@@ -17,7 +17,6 @@ export default function SharePriceCardModal({ commodity, isOpen, onClose }) {
   const isGouging = diff > 0;
 
   const headlineEn = `${commodity.name} is ${markup}% above fair price in Dhaka today!`;
-  const headlineBn = `আজ ঢাকায় ${commodity.nameBn} সরকারি ন্যায্যমূল্যের চেয়ে ${markup}% বেশি দামে বিক্রি হচ্ছে!`;
   const shareText = `${headlineEn}\n\nRetail Price: ৳${retail}/${commodity.unit}\nDAM Fair Cap: ৳${fair}/${commodity.unit}\nOvercharge: ৳${diff}\n\nTrack real-time prices & report price gouging: https://bazaarpulse-bd.vercel.app/heatmap`;
 
   const handleCopy = () => {
@@ -68,12 +67,12 @@ export default function SharePriceCardModal({ commodity, isOpen, onClose }) {
 
           <div className="mt-3">
             <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-              {lang === 'bn' ? commodity.nameBn : commodity.name} • {commodity.unit}
+              {commodity.name} • {commodity.unit}
             </div>
             <h4 className="text-xl font-black text-white mt-1 leading-snug">
               {isGouging ? (
                 <>
-                  <span className="text-rose-400 font-extrabold">+{markup}%</span> {lang === 'bn' ? 'অতিরিক্ত দামে বিক্রি হচ্ছে!' : 'above official fair cap!'}
+                  <span className="text-rose-400 font-extrabold">+{markup}%</span> above official fair cap!
                 </>
               ) : (
                 <span className="text-emerald-400">Selling at Government Fair Cap</span>

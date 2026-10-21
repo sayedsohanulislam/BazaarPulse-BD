@@ -1,10 +1,7 @@
 import React from 'react';
 import { ShieldAlert, TrendingUp, AlertTriangle, CheckCircle2, Info, Activity, Flame } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 
 export default function MarketSentinelGauge({ ticker }) {
-  const { lang } = useLanguage();
-
   const agro = ticker?.agroTelemetry || {};
   const forex = agro.forex?.usdToBdt || 122.86;
   const weatherRisk = agro.agroWeather?.supplyDisruptionRisk || 'LOW';
@@ -21,10 +18,10 @@ export default function MarketSentinelGauge({ ticker }) {
   const isStable = compositeScore < 50;
 
   const statusLabel = isCrisis 
-    ? (lang === 'bn' ? 'জাতীয় জরুরি সংকট স্তর' : 'CRITICAL MARKET PRESSURE')
+    ? 'CRITICAL MARKET PRESSURE'
     : isSurging
-    ? (lang === 'bn' ? 'মধ্যম বাজার অস্থিরতা' : 'ELEVATED VOLATILITY')
-    : (lang === 'bn' ? 'স্থিতিশীল বাজারদর' : 'OPTIMAL STABILITY');
+    ? 'ELEVATED VOLATILITY'
+    : 'OPTIMAL STABILITY';
 
   const statusColor = isCrisis ? '#f43f5e' : isSurging ? '#f59e0b' : '#10b981';
 
@@ -57,15 +54,11 @@ export default function MarketSentinelGauge({ ticker }) {
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
-            {lang === 'bn' 
-              ? 'জাতীয় নিত্যপণ্য সংকট ও স্থিতিশীলতা সেন্ডিনেল' 
-              : 'National Market Stability & Pressure Sentinel'}
+            National Market Stability & Pressure Sentinel
           </h2>
 
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            {lang === 'bn' 
-              ? 'মুদ্রার বিনিময় হার (USD/BDT), উত্তরবঙ্গের বৃষ্টিপাত ও পরিবহন বিঘ্ন এবং কাওরান বাজারের পাইকারি তারতম্য বিশ্লেষণ করে রিয়েল-টাইম সিন্ডিকেট ঝুঁকি পরিমাপ।' 
-              : 'Algorithmic civic risk telemetry evaluating import parity, diesel freight strain, and cold storage hoarding across 64 districts.'}
+            Algorithmic civic risk telemetry evaluating import parity, diesel freight strain, and cold storage hoarding across 64 districts.
           </p>
 
           {/* 3 Core Vulnerability Sub-Indices */}

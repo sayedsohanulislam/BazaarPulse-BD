@@ -9,7 +9,6 @@ import { useBazaar } from '../context/BazaarContext';
 import { Link } from 'react-router-dom';
 
 export default function FishMeatMarket() {
-  const { lang, t } = useLanguage();
   const { addToBasket } = useBazaar();
 
   // Hilsha Interactive Calculator State
@@ -24,20 +23,20 @@ export default function FishMeatMarket() {
 
   // Hilsha Grading Tiers
   const hilshaTiers = [
-    { size: '500g - 700g (Small)', sizeBn: '৫০০ - ৭০০ গ্রাম (ছোট)', padmaRate: 950, marineRate: 750, desc: 'Tender flesh, suitable for mustard hilsha (shorshe ilish)' },
-    { size: '800g - 900g (Medium)', sizeBn: '৮০০ - ৯০০ গ্রাম (মাঝারি)', padmaRate: 1350, marineRate: 1050, desc: 'High oil content, authentic river aroma' },
-    { size: '1.0kg - 1.2kg (Standard)', sizeBn: '১.০ - ১.২ কেজি (আদর্শ)', padmaRate: 1750, marineRate: 1400, desc: 'Premium Padma flavor, high festive demand' },
-    { size: '1.5kg+ (Giant Grade)', sizeBn: '১.৫ কেজি+ (জায়ান্ট গ্রেড)', padmaRate: 2400, marineRate: 1950, desc: 'Collector item, high-society banquets' }
+    { size: '500g - 700g (Small)', padmaRate: 950, marineRate: 750, desc: 'Tender flesh, suitable for mustard hilsha (shorshe ilish)' },
+    { size: '800g - 900g (Medium)', padmaRate: 1350, marineRate: 1050, desc: 'High oil content, authentic river aroma' },
+    { size: '1.0kg - 1.2kg (Standard)', padmaRate: 1750, marineRate: 1400, desc: 'Premium Padma flavor, high festive demand' },
+    { size: '1.5kg+ (Giant Grade)', padmaRate: 2400, marineRate: 1950, desc: 'Collector item, high-society banquets' }
   ];
 
   // Poultry & Meat Rates
   const poultryItems = [
-    { name: 'Tejgaon Egg Arat Wholesale (১০০ ডিমের খাঁচা)', nameBn: 'তেজগাঁও ডিমের আড়ত পাইকারি (১০০ ডিম)', wholesale: 1140, retailPerHali: 56, capFairHali: 50, unit: '100 eggs' },
-    { name: 'Live Broiler Chicken (ব্রয়লার মুরগি)', nameBn: 'ব্রয়লার মুরগি (জীবন্ত কেজি)', wholesale: 168, retailPerHali: 195, capFairHali: 180, unit: 'kg' },
-    { name: 'Sonali Chicken (সোনালি মুরগি)', nameBn: 'সোনালি মুরগি (কেজি)', wholesale: 265, retailPerHali: 320, capFairHali: 290, unit: 'kg' },
-    { name: 'Local Deshi Chicken (দেশি মুরগি)', nameBn: 'দেশি মুরগি (ফার্মমুক্ত)', wholesale: 480, retailPerHali: 580, capFairHali: 520, unit: 'kg' },
-    { name: 'Beef Bone-In (হাড়সহ গরুর মাংস)', nameBn: 'গরুর মাংস (হাড়সহ কেজি)', wholesale: 680, retailPerHali: 780, capFairHali: 720, unit: 'kg' },
-    { name: 'Mutton / Khashi (খাসির মাংস)', nameBn: 'খাসির মাংস (কেজি)', wholesale: 980, retailPerHali: 1150, capFairHali: 1050, unit: 'kg' }
+    { name: 'Tejgaon Egg Arat Wholesale (100 Eggs Crate)', wholesale: 1140, retailPerHali: 56, capFairHali: 50, unit: '100 eggs' },
+    { name: 'Live Broiler Chicken', wholesale: 168, retailPerHali: 195, capFairHali: 180, unit: 'kg' },
+    { name: 'Sonali Chicken', wholesale: 265, retailPerHali: 320, capFairHali: 290, unit: 'kg' },
+    { name: 'Local Deshi Chicken', wholesale: 480, retailPerHali: 580, capFairHali: 520, unit: 'kg' },
+    { name: 'Beef Bone-In', wholesale: 680, retailPerHali: 780, capFairHali: 720, unit: 'kg' },
+    { name: 'Mutton / Khashi', wholesale: 980, retailPerHali: 1150, capFairHali: 1050, unit: 'kg' }
   ];
 
   // Dynamic Hilsha Price Calculation
@@ -74,15 +73,13 @@ export default function FishMeatMarket() {
           <div>
             <div className="flex items-center gap-2 text-sky-400 text-xs font-bold uppercase tracking-wider mb-1">
               <Fish className="w-4 h-4 text-sky-400 animate-pulse" />
-              <span>{lang === 'bn' ? 'ইলিশ গ্রেডিং, ডিমের পাইকারি আড়ত ও ফরমালিন অডিট' : 'Hilsha Grading, Poultry Auction & Formalin Verification'}</span>
+              <span>Hilsha Grading, Poultry Auction & Formalin Verification</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-black text-white">
-              {lang === 'bn' ? 'পদ্মার খাঁটি ইলিশ, তেজগাঁও ডিমের আড়ত ও মাংসের দর' : 'Padma Hilsha Weight Tiers & Tejgaon Egg Arat Tracker'}
+              Padma Hilsha Weight Tiers & Tejgaon Egg Arat Tracker
             </h1>
             <p className="text-sm text-slate-400 mt-1">
-              {lang === 'bn' 
-                ? 'পদ্মা বনাম সাগরের ইলিশের দামের ব্যবধান, তেজগাঁও ডিমের নিলাম দর এবং রাসায়নিক ফরমালিন চেনার ইন্টারেক্টিভ ডায়াগনস্টিক টেস্ট।' 
-                : 'Padma vs marine Hilsha grade pricing, Tejgaon egg auction crate benchmarks, and formalin test guidelines.'}
+              Padma vs marine Hilsha grade pricing, Tejgaon egg auction crate benchmarks, and formalin test guidelines.
             </p>
           </div>
         </div>
@@ -96,10 +93,10 @@ export default function FishMeatMarket() {
                 <span>Smart Fish Calculator</span>
               </div>
               <h3 className="text-lg font-bold text-white">
-                {lang === 'bn' ? 'ইলিশের ওজন ও নদী/সাগর দর ক্যালকুলেটর' : 'Hilsha Weight-Class & River Authenticity Calculator'}
+                Hilsha Weight-Class & River Authenticity Calculator
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {lang === 'bn' ? 'মাছের ওজন দিন — পদ্মা ঘাট বনাম সাগরের ইলিশের সঠিক মূল্য ও প্রিমিয়াম যাচাই করুন।' : 'Enter weight in grams to calculate authentic Padma River vs Coastal Marine pricing.'}
+                Enter weight in grams to calculate authentic Padma River vs Coastal Marine pricing.
               </p>
             </div>
 
@@ -154,7 +151,7 @@ export default function FishMeatMarket() {
                     : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-white'
                 }`}
               >
-                <span>🌊 Authentic Padma (পদ্মা নদী)</span>
+                <span>🌊 Authentic Padma River</span>
               </button>
               <button
                 onClick={() => setHilshaOrigin('marine')}
@@ -164,7 +161,7 @@ export default function FishMeatMarket() {
                     : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-white'
                 }`}
               >
-                <span>⚓ Coastal Marine (সাগরের ইলিশ)</span>
+                <span>⚓ Coastal Marine Hilsha</span>
               </button>
             </div>
           </div>
@@ -176,10 +173,10 @@ export default function FishMeatMarket() {
             <div>
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 <Fish className="w-5 h-5 text-sky-400" />
-                <span>{lang === 'bn' ? 'জাতীয় ইলিশ গ্রেডিং ও দামের পার্থক্য' : 'Hilsha Weight-Class & River/Marine Grading Board'}</span>
+                <span>Hilsha Weight-Class & River/Marine Grading Board</span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {lang === 'bn' ? 'মাওয়া ও চাঁদপুর পদ্মা ঘাট বনাম বরিশাল সাগর ইলিশ' : 'Padma River (Mawa/Chandpur) vs Marine Coastal Hilsha'}
+                Padma River (Mawa/Chandpur) vs Marine Coastal Hilsha
               </p>
             </div>
           </div>
@@ -189,17 +186,17 @@ export default function FishMeatMarket() {
               <div key={idx} className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-slate-600 transition">
                 <div>
                   <span className="text-xs font-bold text-sky-300 block">
-                    {lang === 'bn' ? h.sizeBn : h.size}
+                    {h.size}
                   </span>
 
                   <div className="mt-4 space-y-2 text-xs">
                     <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
-                      <span className="text-[10px] text-slate-400 block font-medium">Padma River (পদ্মার ইলিশ)</span>
+                      <span className="text-[10px] text-slate-400 block font-medium">Padma River Hilsha</span>
                       <span className="text-xl font-black text-emerald-400">৳{h.padmaRate} <span className="text-xs font-normal text-slate-400">/kg</span></span>
                     </div>
 
                     <div className="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
-                      <span className="text-[10px] text-slate-400 block font-medium">Marine Saltwater (সাগরের ইলিশ)</span>
+                      <span className="text-[10px] text-slate-400 block font-medium">Marine Coastal Hilsha</span>
                       <span className="text-lg font-black text-cyan-300">৳{h.marineRate} <span className="text-xs font-normal text-slate-400">/kg</span></span>
                     </div>
                   </div>
@@ -222,10 +219,10 @@ export default function FishMeatMarket() {
                 <span>Food Safety Diagnostic Tool</span>
               </div>
               <h3 className="text-lg font-bold text-white">
-                {lang === 'bn' ? '৪-ধাপের ফরমালিন ও রাসায়নিক ভেজাল যাচাই টেস্ট' : '4-Step Interactive Formalin Adulteration Diagnostic Wizard'}
+                4-Step Interactive Formalin Adulteration Diagnostic Wizard
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {lang === 'bn' ? 'মাছ কেনার সময় এই ৪টি প্রাকৃতিক লক্ষণ মিলিয়ে দেখুন এবং ভেজাল ঝুঁকি স্কোর যাচাই করুন।' : 'Check off real-world biological indicators to compute the algorithmic adulteration risk score.'}
+                Check off real-world biological indicators to compute the algorithmic adulteration risk score.
               </p>
             </div>
 
@@ -255,7 +252,7 @@ export default function FishMeatMarket() {
             {/* Test 1: Gills */}
             <div className="bg-slate-950/70 p-4 rounded-xl border border-slate-800 space-y-3">
               <div className="flex justify-between items-start">
-                <h4 className="text-xs font-bold text-white">1. Gill Color Test (ফুলকার রঙ)</h4>
+                <h4 className="text-xs font-bold text-white">1. Gill Color Test</h4>
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${testGills === 'danger' ? 'bg-rose-500/20 text-rose-400' : 'bg-emerald-500/20 text-emerald-400'}`}>
                   {testGills === 'danger' ? 'Suspicious' : 'Natural'}
                 </span>
@@ -286,7 +283,7 @@ export default function FishMeatMarket() {
             {/* Test 2: Fly Attraction */}
             <div className="bg-slate-950/70 p-4 rounded-xl border border-slate-800 space-y-3">
               <div className="flex justify-between items-start">
-                <h4 className="text-xs font-bold text-white">2. Housefly Attraction Test (মাছি বসার পরীক্ষা)</h4>
+                <h4 className="text-xs font-bold text-white">2. Housefly Attraction Test</h4>
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${testFlies === 'danger' ? 'bg-rose-500/20 text-rose-400' : 'bg-emerald-500/20 text-emerald-400'}`}>
                   {testFlies === 'danger' ? 'Suspicious' : 'Natural'}
                 </span>
@@ -317,7 +314,7 @@ export default function FishMeatMarket() {
             {/* Test 3: Eyes */}
             <div className="bg-slate-950/70 p-4 rounded-xl border border-slate-800 space-y-3">
               <div className="flex justify-between items-start">
-                <h4 className="text-xs font-bold text-white">3. Eye Clarity Test (চোখের স্বচ্ছতা)</h4>
+                <h4 className="text-xs font-bold text-white">3. Eye Clarity Test</h4>
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${testEyes === 'danger' ? 'bg-rose-500/20 text-rose-400' : 'bg-emerald-500/20 text-emerald-400'}`}>
                   {testEyes === 'danger' ? 'Suspicious' : 'Natural'}
                 </span>
@@ -348,7 +345,7 @@ export default function FishMeatMarket() {
             {/* Test 4: Slime */}
             <div className="bg-slate-950/70 p-4 rounded-xl border border-slate-800 space-y-3">
               <div className="flex justify-between items-start">
-                <h4 className="text-xs font-bold text-white">4. Slime & Skin Texture (ত্বকের পিচ্ছিলতা)</h4>
+                <h4 className="text-xs font-bold text-white">4. Slime & Skin Texture</h4>
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${testSlime === 'danger' ? 'bg-rose-500/20 text-rose-400' : 'bg-emerald-500/20 text-emerald-400'}`}>
                   {testSlime === 'danger' ? 'Suspicious' : 'Natural'}
                 </span>
@@ -383,7 +380,7 @@ export default function FishMeatMarket() {
             <div className="p-4 rounded-xl bg-rose-950/80 border border-rose-500/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <div>
                 <h4 className="text-sm font-bold text-rose-200">
-                  {lang === 'bn' ? 'সতর্কতা: তীব্র রাসায়নিক ভেজাল শনাক্ত হয়েছে!' : 'CRITICAL WARNING: High Formalin Adulteration Suspected!'}
+                  CRITICAL WARNING: High Formalin Adulteration Suspected!
                 </h4>
                 <p className="text-xs text-rose-300/80 mt-0.5">
                   Do not consume this produce. Report immediately to the DNCRP Task Force for rapid stall raid and laboratory inspection.
@@ -406,10 +403,10 @@ export default function FishMeatMarket() {
             <div>
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 <Drumstick className="w-5 h-5 text-amber-400" />
-                <span>{lang === 'bn' ? 'তেজগাঁও ডিমের আড়ত নিলাম ও ব্রয়লার মাংসের দর' : 'Tejgaon Egg Auction & Livestock Price Matrix'}</span>
+                <span>Tejgaon Egg Auction & Livestock Price Matrix</span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {lang === 'bn' ? '১০০ ডিমের পাইকারি নিলাম রেট ও সরকারি ন্যায্যমূল্যের সাথে তুলনা' : 'Wholesale crate auction rates vs urban neighborhood retail'}
+                Wholesale crate auction rates vs urban neighborhood retail
               </p>
             </div>
           </div>
@@ -418,7 +415,7 @@ export default function FishMeatMarket() {
             {poultryItems.map((item, idx) => (
               <div key={idx} className="bg-slate-950/80 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
                 <div>
-                  <h4 className="text-sm font-bold text-white">{lang === 'bn' ? item.nameBn : item.name}</h4>
+                  <h4 className="text-sm font-bold text-white">{item.name}</h4>
                   <div className="mt-3 space-y-1 text-xs">
                     <div className="flex justify-between text-slate-400">
                       <span>Wholesale Rate:</span>

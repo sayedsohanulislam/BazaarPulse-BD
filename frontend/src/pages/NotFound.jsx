@@ -4,8 +4,6 @@ import { AlertOctagon, Home, TrendingUp, Truck, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function NotFound() {
-  const { lang } = useLanguage();
-
   return (
     <div className="min-h-[75vh] flex items-center justify-center px-4 py-16">
       <div className="max-w-md w-full text-center space-y-6 bg-slate-900/80 border border-slate-700/80 rounded-3xl p-8 shadow-2xl backdrop-blur-md">
@@ -19,12 +17,10 @@ export default function NotFound() {
             Error 404 • Page Not Found
           </span>
           <h1 className="text-3xl font-black text-white mt-1">
-            {lang === 'bn' ? 'পৃষ্ঠাটি পাওয়া যায়নি' : 'Lost in the Bazaar?'}
+            Lost in the Bazaar?
           </h1>
           <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-            {lang === 'bn'
-              ? 'আপনি যে পৃষ্ঠাটি খুঁজছেন তা হয়তো সরানো হয়েছে অথবা লিংকটি ভুল। নিচের বাটনগুলো দিয়ে প্রধান পাতায় ফিরে যেতে পারেন।'
-              : 'The market intelligence module or commodity link you are trying to visit does not exist or has been relocated.'}
+            The market intelligence module or commodity link you are trying to visit does not exist or has been relocated.
           </p>
         </div>
 

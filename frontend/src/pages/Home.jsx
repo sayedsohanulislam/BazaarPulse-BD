@@ -7,7 +7,6 @@ import {
   Plus, ShoppingCart, Award, MapPin, Search, Bell, Share2, 
   ChevronDown, ChevronUp, Copy, Check, Terminal, ExternalLink, Users, FileText, Database, HeartHandshake
 } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 import { useBazaar } from '../context/BazaarContext';
 import MarketSentinelGauge from '../components/MarketSentinelGauge';
 import CommoditySearchAutocomplete from '../components/CommoditySearchAutocomplete';
@@ -18,7 +17,6 @@ import PriceAlertModal from '../components/PriceAlertModal';
 import MethodologyModal from '../components/MethodologyModal';
 
 export default function Home({ onOpenAuth }) {
-  const { lang, t } = useLanguage();
   const { ticker, commodities, loading, addToBasket, setIsBasketOpen, addToast } = useBazaar();
   const navigate = useNavigate();
 
@@ -56,14 +54,14 @@ export default function Home({ onOpenAuth }) {
   const decliners = ticker?.topDecliners || [];
 
   const divisions = [
-    { name: 'Dhaka', nameBn: 'ঢাকা', activeTrucks: 52, avgMarkup: '+14%', status: 'HIGH_DEMAND' },
-    { name: 'Chattogram', nameBn: 'চট্টগ্রাম', activeTrucks: 38, avgMarkup: '+11%', status: 'PORT_TRANSIT' },
-    { name: 'Rajshahi', nameBn: 'রাজশাহী', activeTrucks: 24, avgMarkup: '+6%', status: 'PRODUCTION_HUB' },
-    { name: 'Khulna', nameBn: 'খুলনা', activeTrucks: 22, avgMarkup: '+8%', status: 'STABLE' },
-    { name: 'Barishal', nameBn: 'বরিশাল', activeTrucks: 18, avgMarkup: '+9%', status: 'RIVER_TRANSIT' },
-    { name: 'Sylhet', nameBn: 'সিলেট', activeTrucks: 19, avgMarkup: '+12%', status: 'MONITORING' },
-    { name: 'Rangpur', nameBn: 'রংপুর', activeTrucks: 21, avgMarkup: '+5%', status: 'PRODUCTION_HUB' },
-    { name: 'Mymensingh', nameBn: 'ময়মনসিংহ', activeTrucks: 16, avgMarkup: '+7%', status: 'STABLE' }
+    { name: 'Dhaka', activeTrucks: 52, avgMarkup: '+14%', status: 'HIGH_DEMAND' },
+    { name: 'Chattogram', activeTrucks: 38, avgMarkup: '+11%', status: 'PORT_TRANSIT' },
+    { name: 'Rajshahi', activeTrucks: 24, avgMarkup: '+6%', status: 'PRODUCTION_HUB' },
+    { name: 'Khulna', activeTrucks: 22, avgMarkup: '+8%', status: 'STABLE' },
+    { name: 'Barishal', activeTrucks: 18, avgMarkup: '+9%', status: 'RIVER_TRANSIT' },
+    { name: 'Sylhet', activeTrucks: 19, avgMarkup: '+12%', status: 'MONITORING' },
+    { name: 'Rangpur', activeTrucks: 21, avgMarkup: '+5%', status: 'PRODUCTION_HUB' },
+    { name: 'Mymensingh', activeTrucks: 16, avgMarkup: '+7%', status: 'STABLE' }
   ];
 
   // Gouging Checker Calculations
@@ -79,28 +77,24 @@ export default function Home({ onOpenAuth }) {
     {
       step: '01',
       title: 'Real-Time Telemetry Ingestion',
-      titleBn: 'লাইভ তথ্য ও স্যাটেলাইট আবহাওয়া সংগ্রহ',
       desc: 'Automated crawlers ingest wholesale auction prices at Karwan Bazar, Open-Meteo satellite agrometeorology, and live USD/BDT forex import parity every 15 minutes.',
       metric: '15m refresh frequency • 3 official data streams'
     },
     {
       step: '02',
       title: 'Algorithmic Fair Price Modeling',
-      titleBn: 'গাণিতিক ন্যায্যমূল্য নির্ধারণ মডেল',
-      desc: 'Based on the Agricultural Marketing Act 2018: Farmgate cost + diesel freight per ton + cold storage fees + statutory 12% maximum retail margin.',
+      desc: 'Based on the Agricultural Marketing Act 2018: Farmgate cost + diesel freight per ton + cold storage preservation fees + statutory 12% maximum retail margin.',
       metric: 'Statutory 12% ceiling cap enforced'
     },
     {
       step: '03',
       title: 'Syndicate Anomaly Detection',
-      titleBn: 'সিন্ডিকেটের কৃত্রিম সংকট ও মজুদদারি সনাক্তকরণ',
       desc: 'Cross-checks wholesale-to-retail price spreads against potato cold-storage holding inventories to detect artificial hoarding and price-fixing rings.',
       metric: 'Identifies markup anomalies > 15%'
     },
     {
       step: '04',
       title: 'Citizen Action & DNCRP 13346 Filing',
-      titleBn: 'নাগরিক প্রতিরোধ ও সরাসরি ভোক্তা অধিকার অভিযোগ',
       desc: 'Empowers citizens to buy at subsidized TCB trucks, audit grocery baskets, and generate pre-filled evidence dossiers for mobile court magistrates.',
       metric: 'Direct legal recourse with 25% reward provision'
     }
@@ -179,7 +173,7 @@ export default function Home({ onOpenAuth }) {
             <div className="flex items-center gap-6 overflow-x-auto text-xs whitespace-nowrap scrollbar-none py-0.5">
               {(commodities || []).slice(0, 8).map(c => (
                 <span key={c.id || c._id} className="inline-flex items-center gap-1.5 text-slate-300">
-                  <span className="font-semibold text-white">{lang === 'bn' ? c.nameBn : c.name}:</span>
+                  <span className="font-semibold text-white">{c.name}:</span>
                   <span className="text-emerald-400 font-bold">৳{c.retailAvgPrice}</span>
                   <span className="text-slate-500 text-[10px]">(Cap: ৳{c.damFairPriceMax})</span>
                 </span>
@@ -194,21 +188,15 @@ export default function Home({ onOpenAuth }) {
               {/* National ICT Award Nominee Pill */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500/10 border border-amber-500/30 text-amber-300 mb-4 shadow-lg glow-amber">
                 <Award className="w-4 h-4 text-amber-400 animate-bounce" />
-                <span>{lang === 'bn' ? '🏆 জাতীয় আইসিটি পুরস্কার ২০২৬ ও স্মার্ট বাংলাদেশ ইনোভেশন নমিনি' : '🏆 BASIS National ICT Award 2026 Nominee • Smart Bangladesh Civic Tech'}</span>
+                <span>🏆 BASIS National ICT Award 2026 Nominee • Smart Bangladesh Civic Tech</span>
               </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
-                {lang === 'bn' ? (
-                  <>কাওরান বাজার টু পাড়া-মহল্লা: <span className="text-gradient-emerald">ন্যায্য বাজারদর</span></>
-                ) : (
-                  <>Wholesale to Retail: <span className="text-gradient-emerald">Fair Price Intelligence</span></>
-                )}
+                Wholesale to Retail: <span className="text-gradient-emerald">Fair Price Intelligence</span>
               </h1>
               
               <p className="mt-4 text-base text-slate-300 max-w-2xl leading-relaxed">
-                {lang === 'bn' 
-                  ? 'কৃষি বিপণন অধিদপ্তরের (DAM) দৈনিক ন্যায্যমূল্য, টিসিবি খোলা ট্রাকের লাইভ ট্র্যাকিং, কাওরান বাজারের পাইকারি আড়ত রেট এবং সিন্ডিকেটের কারসাজি প্রতিরোধে সরাসরি ভোক্তা অধিকার অভিযোগ।'
-                  : 'Real-time commodity price benchmarks from DAM, live GPS tracking for subsidized TCB trucks, Karwan Bazar wholesale spread analytics, and automated DNCRP magistrate reporting.'}
+                Real-time commodity price benchmarks from DAM, live GPS tracking for subsidized TCB trucks, Karwan Bazar wholesale spread analytics, and automated DNCRP magistrate reporting.
               </p>
 
               {/* Dynamic Autocomplete Search Bar */}
@@ -223,7 +211,7 @@ export default function Home({ onOpenAuth }) {
                   className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-5 py-3 rounded-xl transition flex items-center gap-2 shadow-lg shadow-emerald-950/50"
                 >
                   <TrendingUp className="w-4 h-4" />
-                  <span>{lang === 'bn' ? 'মূল্য বিশ্লেষণ দেখুন' : 'Explore Price Radar'}</span>
+                  <span>Explore Price Radar</span>
                 </Link>
 
                 <Link
@@ -231,7 +219,7 @@ export default function Home({ onOpenAuth }) {
                   className="bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold text-sm px-5 py-3 rounded-xl transition flex items-center gap-2 border border-slate-700"
                 >
                   <Truck className="w-4 h-4 text-cyan-400" />
-                  <span>{lang === 'bn' ? 'টিসিবি ট্রাক খুঁজুন' : 'TCB Truck Locator'}</span>
+                  <span>TCB Truck Locator</span>
                 </Link>
 
                 <button
@@ -239,7 +227,7 @@ export default function Home({ onOpenAuth }) {
                   className="bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-sm px-4 py-3 rounded-xl transition flex items-center gap-2 border border-amber-500/30"
                 >
                   <Bell className="w-4 h-4 text-amber-400" />
-                  <span>{lang === 'bn' ? 'অ্যালার্ট সাবস্ক্রিপশন' : 'Price Alerts'}</span>
+                  <span>Price Alerts</span>
                 </button>
               </div>
 
@@ -252,7 +240,7 @@ export default function Home({ onOpenAuth }) {
               <div className="bg-slate-900/80 border border-slate-700/80 rounded-2xl p-4 shadow-xl backdrop-blur-md hover:border-emerald-500/50 transition">
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
-                    {lang === 'bn' ? 'আমদানি ডলার বিনিময় হার' : 'USD/BDT Forex Rate'}
+                    USD/BDT Forex Rate
                   </span>
                   <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
                     Live
@@ -270,12 +258,12 @@ export default function Home({ onOpenAuth }) {
               <div className="bg-slate-900/80 border border-slate-700/80 rounded-2xl p-4 shadow-xl backdrop-blur-md hover:border-cyan-500/50 transition">
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
-                    {lang === 'bn' ? 'সক্রিয় টিসিবি ট্রাক' : 'Active TCB Trucks'}
+                    Active TCB Trucks
                   </span>
                   <Truck className="w-4 h-4 text-cyan-400 animate-pulse" />
                 </div>
                 <div className="mt-2 text-2xl font-black text-cyan-300">
-                  50+ <span className="text-xs font-normal text-slate-400">{lang === 'bn' ? 'পয়েন্টে' : 'Sale Points'}</span>
+                  50+ <span className="text-xs font-normal text-slate-400">Sale Points</span>
                 </div>
                 <p className="text-[11px] text-slate-400 mt-1">
                   Subsidized oil ৳100, lentils ৳60, sugar ৳70.
@@ -286,7 +274,7 @@ export default function Home({ onOpenAuth }) {
               <div className="bg-slate-900/80 border border-slate-700/80 rounded-2xl p-4 shadow-xl backdrop-blur-md hover:border-amber-500/50 transition">
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
-                    {lang === 'bn' ? 'বগুড়া/যশোর কৃষিক্ষেত্র' : 'Agro-Weather Belt'}
+                    Agro-Weather Belt
                   </span>
                   <CloudSun className="w-4 h-4 text-amber-400" />
                 </div>
@@ -303,7 +291,7 @@ export default function Home({ onOpenAuth }) {
                 <div>
                   <div className="flex justify-between items-start">
                     <span className="text-[10px] uppercase font-bold text-rose-300 tracking-wider">
-                      {lang === 'bn' ? 'ভোক্তা হটলাইন' : 'DNCRP Hotline'}
+                      DNCRP Hotline
                     </span>
                     <PhoneCall className="w-4 h-4 text-rose-400 animate-bounce" />
                   </div>
@@ -312,7 +300,7 @@ export default function Home({ onOpenAuth }) {
                   </div>
                 </div>
                 <Link to="/whistle" className="text-[11px] text-rose-300 hover:text-white font-semibold flex items-center gap-1 mt-2">
-                  <span>{lang === 'bn' ? 'অনলাইনে অভিযোগ করুন' : 'File Complaint'}</span>
+                  <span>File Complaint</span>
                   <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
@@ -340,15 +328,15 @@ export default function Home({ onOpenAuth }) {
             <div className="flex flex-wrap items-center gap-2 text-xs">
               <span className="px-3 py-1 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                <span>DAM (কৃষি বিপণন অধিদপ্তর)</span>
+                <span>DAM (Agricultural Marketing)</span>
               </span>
               <span className="px-3 py-1 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
-                <span>TCB (ট্রেডিং কর্পোরেশন)</span>
+                <span>TCB (Trading Corporation)</span>
               </span>
               <span className="px-3 py-1 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-rose-400" />
-                <span>DNCRP (ভোক্তা অধিকার সংরক্ষণ)</span>
+                <span>DNCRP (Consumer Protection)</span>
               </span>
             </div>
           </div>
@@ -399,11 +387,11 @@ export default function Home({ onOpenAuth }) {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <span>{lang === 'bn' ? 'তাৎক্ষণিক অতিরিক্ত দাম যাচাই ও ভোক্তা অভিযোগ' : 'Instant Price Gouging Checker & Penalty Audit'}</span>
+                  <span>Instant Price Gouging Checker & Penalty Audit</span>
                   <span className="px-2 py-0.5 rounded-full text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase font-bold">Interactive</span>
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5">
-                  {lang === 'bn' ? 'আপনার এলাকার দোকানে কত দাম নেওয়া হলো? সরকারি ন্যায্যমূল্যের সাথে তুলনা করে দেখুন।' : 'Enter what you were charged locally to see if it violates the official DAM price ceiling.'}
+                  Enter what you were charged locally to see if it violates the official DAM price ceiling.
                 </p>
               </div>
             </div>
@@ -417,7 +405,7 @@ export default function Home({ onOpenAuth }) {
               >
                 {(commodities || []).map(c => (
                   <option key={c.id || c._id} value={c.id || c._id}>
-                    {lang === 'bn' ? c.nameBn : c.name} (DAM Cap: ৳{c.damFairPriceMax})
+                    {c.name} (DAM Cap: ৳{c.damFairPriceMax})
                   </option>
                 ))}
               </select>
@@ -426,7 +414,7 @@ export default function Home({ onOpenAuth }) {
                 <span className="absolute left-2.5 top-2 text-xs text-slate-400 font-bold">৳</span>
                 <input
                   type="number"
-                  placeholder={lang === 'bn' ? 'আপনি কত দিলেন?' : 'Charged Price'}
+                  placeholder="Charged Price"
                   value={userPaidPrice}
                   onChange={(e) => setUserPaidPrice(e.target.value)}
                   className="bg-slate-800 border border-slate-700 rounded-xl pl-6 pr-3 py-2 text-xs text-white w-32 focus:outline-none focus:border-amber-400"
@@ -439,12 +427,12 @@ export default function Home({ onOpenAuth }) {
                   className="px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-lg shadow-rose-950/40"
                 >
                   <AlertOctagon className="w-3.5 h-3.5" />
-                  <span>{lang === 'bn' ? `+৳${priceDifference} অতিরিক্ত! রিপোর্ট করুন` : `+৳${priceDifference} Gouge! Report`}</span>
+                  <span>+৳{priceDifference} Gouge! Report</span>
                 </Link>
               ) : userPriceNum > 0 ? (
                 <div className="px-3 py-2 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>{lang === 'bn' ? 'ন্যায্যমূল্যের ভেতর' : 'Fair Price'}</span>
+                  <span>Fair Price</span>
                 </div>
               ) : null}
             </div>
@@ -458,7 +446,7 @@ export default function Home({ onOpenAuth }) {
             <div>
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-cyan-400" />
-                <span>{lang === 'bn' ? '৮ বিভাগীয় বাজার মনিটরিং ও টিসিবি কভারেজ' : '8 Administrative Divisions Market Telemetry'}</span>
+                <span>8 Administrative Divisions Market Telemetry</span>
               </h3>
               <p className="text-xs text-slate-400">
                 Click any division to inspect local subsidized TCB truck coverage and average neighborhood markup.
@@ -482,7 +470,7 @@ export default function Home({ onOpenAuth }) {
                       : 'bg-slate-950/70 border-slate-800 text-slate-300 hover:border-slate-600'
                   }`}
                 >
-                  <div className="text-xs font-bold">{lang === 'bn' ? div.nameBn : div.name}</div>
+                  <div className="text-xs font-bold">{div.name}</div>
                   <div className="text-[10px] text-cyan-400 mt-1">{div.activeTrucks} OMS Trucks</div>
                   <div className="text-[9px] text-slate-500">Markup: {div.avgMarkup}</div>
                 </button>
@@ -609,7 +597,7 @@ export default function Home({ onOpenAuth }) {
           <div>
             <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-emerald-400" />
-              <span>{lang === 'bn' ? 'আজকের শীর্ষ মূল্যপরিবর্তন ও পণ্য ডিরেক্টরি' : 'Daily Market Movers & Commodity Watch'}</span>
+              <span>Daily Market Movers & Commodity Watch</span>
             </h2>
             <p className="text-xs text-slate-400 mt-1">
               Compare retail prices against official DAM fair caps, inspect 7/30/90d trend curves, or generate shareable social cards.
@@ -656,7 +644,7 @@ export default function Home({ onOpenAuth }) {
                   <div className="flex justify-between items-start">
                     <div>
                       <h4 className="text-sm font-bold text-white group-hover:text-emerald-400 transition">
-                        {lang === 'bn' ? c.nameBn : c.name}
+                        {c.name}
                       </h4>
                       <span className="text-[10px] text-slate-400">{c.category} • {c.unit}</span>
                     </div>
@@ -917,7 +905,7 @@ export default function Home({ onOpenAuth }) {
   "status": "success",
   "data": [
     {
-      "name": "Local Onion (দেশি পেঁয়াজ)",
+      "name": "Local Onion",
       "damFairPriceMax": 85,
       "karwanBazarWholesale": 75,
       "retailAvgPrice": 105,

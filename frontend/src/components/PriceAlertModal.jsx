@@ -29,9 +29,7 @@ export default function PriceAlertModal({ isOpen, onClose, preselectedCommodity 
 
     if (addToast) {
       addToast(
-        lang === 'bn' 
-          ? `সফলভাবে অ্যালার্ট চালু হয়েছে! ${selectedComm?.nameBn || 'পণ্যের'} দাম বাড়লে নোটিফিকেশন পাবেন।`
-          : `Alert activated! You will be notified when ${selectedComm?.name || 'commodity'} changes price.`,
+        `Alert activated! You will be notified when ${selectedComm?.name || 'commodity'} changes price.`,
         'success'
       );
     }
@@ -55,7 +53,7 @@ export default function PriceAlertModal({ isOpen, onClose, preselectedCommodity 
             </div>
             <div>
               <h3 className="text-base font-bold text-white">
-                {lang === 'bn' ? 'মূল্যবৃদ্ধি সতর্কবার্তা সাবস্ক্রিপশন' : 'Real-Time Price Alert Subscription'}
+                Real-Time Price Alert Subscription
               </h3>
               <span className="text-[10px] text-slate-400">Email & Telegram Dispatch</span>
             </div>
@@ -153,7 +151,7 @@ export default function PriceAlertModal({ isOpen, onClose, preselectedCommodity 
                 <option value="ALL">All Essential Groceries (Daily Digest)</option>
                 {(commodities || []).map(c => (
                   <option key={c.id || c._id} value={c.id || c._id}>
-                    {c.name} ({c.nameBn}) - Retail: ৳{c.retailAvgPrice} / {c.unit}
+                    {c.name} - Retail: ৳{c.retailAvgPrice} / {c.unit}
                   </option>
                 ))}
               </select>

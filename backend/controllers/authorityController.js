@@ -7,7 +7,7 @@ let activeBulletins = [
   {
     id: 'b1',
     title: 'DNCRP Nationwide Crackdown on Potato & Egg Hoarders',
-    titleBn: 'আলু ও ডিমের সিন্ডিকেটের বিরুদ্ধে দেশব্যাপী ভ্রাম্যমাণ আদালতের সাঁড়াশি অভিযান',
+    titleBn: 'DNCRP Nationwide Crackdown on Potato & Egg Hoarders',
     severity: 'HIGH',
     directive: 'Retailers must display DAM indicative price board. Hoarding cold storage potato above 30 Tk gate price prohibited.',
     issuedAt: new Date().toISOString()

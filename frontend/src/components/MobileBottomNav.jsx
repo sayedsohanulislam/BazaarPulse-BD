@@ -5,16 +5,15 @@ import { useLanguage } from '../context/LanguageContext';
 import { useBazaar } from '../context/BazaarContext';
 
 export default function MobileBottomNav({ onOpenMobileMenu }) {
-  const { lang, t } = useLanguage();
   const { basket, setIsBasketOpen, setIsCommandPaletteOpen } = useBazaar();
   const location = useLocation();
 
   const basketCount = basket.reduce((acc, item) => acc + item.qty, 0);
 
   const navItems = [
-    { to: '/', label: lang === 'bn' ? 'বাজার' : 'Home', icon: ShoppingBag },
-    { to: '/heatmap', label: lang === 'bn' ? 'দাম' : 'Prices', icon: TrendingUp },
-    { to: '/tcb', label: lang === 'bn' ? 'টিসিবি' : 'TCB OMS', icon: Truck },
+    { to: '/', label: 'Home', icon: ShoppingBag },
+    { to: '/heatmap', label: 'Prices', icon: TrendingUp },
+    { to: '/tcb', label: 'TCB OMS', icon: Truck },
   ];
 
   return (
@@ -51,7 +50,7 @@ export default function MobileBottomNav({ onOpenMobileMenu }) {
             )}
           </div>
           <span className="text-[10px] mt-0.5 text-amber-300 font-medium">
-            {lang === 'bn' ? 'ব্যাগ' : 'Basket'}
+            Basket
           </span>
         </button>
 
@@ -62,7 +61,7 @@ export default function MobileBottomNav({ onOpenMobileMenu }) {
         >
           <Search className="w-5 h-5 text-cyan-400" />
           <span className="text-[10px] mt-0.5 text-cyan-300 font-medium">
-            {lang === 'bn' ? 'অনুসন্ধান' : 'Search'}
+            Search
           </span>
         </button>
       </div>

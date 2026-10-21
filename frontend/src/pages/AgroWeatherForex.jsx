@@ -8,7 +8,6 @@ import { useLanguage } from '../context/LanguageContext';
 import { useBazaar } from '../context/BazaarContext';
 
 export default function AgroWeatherForex() {
-  const { lang, t } = useLanguage();
   const { ticker, forceRefresh, isRefreshing, addToast } = useBazaar();
 
   const agro = ticker?.agroTelemetry || {};
@@ -26,15 +25,13 @@ export default function AgroWeatherForex() {
             <div>
               <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider mb-1">
                 <CloudSun className="w-4 h-4 text-amber-400 animate-pulse" />
-                <span>{lang === 'bn' ? 'কৃষি আবহাওয়া ও বৈদেশিক মুদ্রা বিনিময় নজরদারি' : 'Agrometeorological Harvest & Import Parity Radar'}</span>
+                <span>Agrometeorological Harvest & Import Parity Radar</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white">
-                {lang === 'bn' ? 'বগুড়া কৃষিক্ষেত্রের বৃষ্টিপাত ও ডলার রেটের প্রভাব' : 'Bogura Harvest Weather & USD/BDT Forex Benchmarks'}
+                Bogura Harvest Weather & USD/BDT Forex Benchmarks
               </h1>
               <p className="text-sm text-slate-400 mt-1">
-                {lang === 'bn' 
-                  ? 'ওপেন-মেটিও লাইভ স্যাটেলাইট ওয়েদার এবং আমদানি তেলের ডলার ল্যান্ডেড কস্ট মডেলিং।' 
-                  : 'Automated harvest disruption analysis and imported essential landed cost parity.'}
+                Automated harvest disruption analysis and imported essential landed cost parity.
               </p>
             </div>
 
@@ -44,7 +41,7 @@ export default function AgroWeatherForex() {
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition shadow-lg shadow-amber-950/40 disabled:opacity-50"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
-              <span>{isRefreshing ? 'Syncing...' : (lang === 'bn' ? 'লাইভ এপিআই সিঙ্ক' : 'Force Telemetry Sync')}</span>
+              <span>{isRefreshing ? 'Syncing...' : 'Force Telemetry Sync'}</span>
             </button>
           </div>
         </div>
@@ -57,7 +54,7 @@ export default function AgroWeatherForex() {
             <div>
               <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">
                 <CloudSun className="w-4 h-4" />
-                <span>{lang === 'bn' ? 'বগুড়া ও উত্তরবঙ্গ কৃষিক্ষেত্র আবহাওয়া' : 'Bogura & Northern Agrometeorology Feed'}</span>
+                <span>Bogura & Northern Agrometeorology Feed</span>
               </div>
 
               <div className="flex items-baseline justify-between mt-2">
@@ -105,7 +102,7 @@ export default function AgroWeatherForex() {
             <div className="p-4 bg-slate-950/80 rounded-xl border border-slate-800 text-xs text-slate-300 flex items-start gap-2.5">
               <AlertCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold text-white block">{lang === 'bn' ? 'বর্তমান ফসলি অবস্থা ও মহাসড়ক পরিবহন:' : 'Harvest Condition & Highway Corridors:'}</span>
+                <span className="font-bold text-white block">Harvest Condition & Highway Corridors:</span>
                 <p className="mt-0.5 leading-relaxed text-slate-400">
                   {weather.harvestStatus || 'Favorable harvest and road transport conditions across northern highway corridors.'}
                 </p>
@@ -118,7 +115,7 @@ export default function AgroWeatherForex() {
             <div>
               <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
                 <DollarSign className="w-4 h-4" />
-                <span>{lang === 'bn' ? 'আমদানি প্যারিটি ও ডলার রেট প্রভাব' : 'Import Parity & Currency Telemetry'}</span>
+                <span>Import Parity & Currency Telemetry</span>
               </div>
 
               <div className="flex items-baseline justify-between mt-2">

@@ -29,9 +29,7 @@ export default function Footer() {
             <span className="text-base font-bold text-white tracking-tight">{t('brand')}</span>
           </div>
           <p className="text-slate-400 leading-relaxed text-[11px]">
-            {lang === 'bn' 
-              ? 'কৃষি বিপণন অধিদপ্তর (DAM), টিসিবি (TCB) এবং জাতীয় ভোক্তা-অধিকার সংরক্ষণ অধিদপ্তর (DNCRP) এর তথ্যের ওপর ভিত্তি করে নির্মিত উন্মুক্ত নাগরিক প্ল্যাটফর্ম।'
-              : 'Open-access civic market intelligence platform integrating DAM fair price caps, TCB subsidized trucks, and DNCRP consumer law enforcement.'}
+            Open-access civic market intelligence platform integrating DAM fair price caps, TCB subsidized trucks, and DNCRP consumer law enforcement.
           </p>
           <div className="flex items-center gap-3 pt-2 text-slate-400">
             <a href="https://github.com/sayedsohanulislam/BazaarPulse-BD" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:text-white transition">
@@ -49,7 +47,7 @@ export default function Footer() {
         {/* Regulatory Sources & Transparency */}
         <div>
           <h4 className="font-bold text-white uppercase text-xs tracking-wider mb-3">
-            {lang === 'bn' ? 'সরকারি নজরদারি সংস্থা' : 'Regulatory Data Sources'}
+            Regulatory Data Sources
           </h4>
           <ul className="space-y-2 text-[11px]">
             <li className="flex items-center gap-1.5 text-slate-300">
@@ -74,7 +72,7 @@ export default function Footer() {
         {/* Consumer Hotlines */}
         <div>
           <h4 className="font-bold text-white uppercase text-xs tracking-wider mb-3">
-            {lang === 'bn' ? 'জরুরি ভোক্তা হটলাইন' : 'Emergency Citizen Hotlines'}
+            Emergency Citizen Hotlines
           </h4>
           <div className="space-y-2 text-[11px]">
             <a href="tel:13346" className="block bg-slate-900 border border-slate-800 p-2.5 rounded-xl hover:border-slate-700 transition">
@@ -97,7 +95,7 @@ export default function Footer() {
         {/* Weekly Price Digest Newsletter */}
         <div>
           <h4 className="font-bold text-white uppercase text-xs tracking-wider mb-3">
-            {lang === 'bn' ? 'সাপ্তাহিক বাজার বুলেটিন' : 'Weekly Price Digest'}
+            Weekly Price Digest
           </h4>
           <p className="text-[11px] leading-relaxed text-slate-400 mb-3">
             Get every Friday's Karwan Bazar wholesale price movement and weekend market outlook delivered to your inbox.

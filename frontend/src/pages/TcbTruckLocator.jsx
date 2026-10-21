@@ -67,7 +67,7 @@ export default function TcbTruckLocator() {
           lng: pos.coords.longitude
         });
         setLocating(false);
-        addToast(lang === 'bn' ? 'নিকটবর্তী টিসিবি ট্রাক অনুযায়ী তালিকা সাজানো হয়েছে!' : 'Trucks sorted by distance to your current location!', 'success');
+        addToast('Trucks sorted by distance to your current location!', 'success');
       },
       (err) => {
         console.error(err);
@@ -80,7 +80,6 @@ export default function TcbTruckLocator() {
   let filteredTrucks = trucks.filter(t => {
     const matchesStatus = selectedStatus === 'ALL' || t.arrivalStatus === selectedStatus;
     const matchesSearch = t.locationName.toLowerCase().includes(search.toLowerCase()) || 
-                          t.locationNameBn.includes(search) ||
                           t.thana.toLowerCase().includes(search.toLowerCase());
     return matchesStatus && matchesSearch;
   });
@@ -103,15 +102,13 @@ export default function TcbTruckLocator() {
             <div>
               <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-1">
                 <Truck className="w-4 h-4 text-cyan-400 animate-bounce" />
-                <span>{lang === 'bn' ? 'টিসিবি খোলা ট্রাক ও ওএমএস ন্যায্যমূল্য কেন্দ্র' : 'Trading Corporation of Bangladesh (TCB) OMS Network'}</span>
+                <span>Trading Corporation of Bangladesh (TCB) OMS Network</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white">
-                {lang === 'bn' ? 'টিসিবি ট্রাকের লাইভ অবস্থান ও মজুত ট্র্যাকার' : 'Live TCB Subsidized Truck Locator & Stock Radar'}
+                Live TCB Subsidized Truck Locator & Stock Radar
               </h1>
               <p className="text-sm text-slate-400 mt-1">
-                {lang === 'bn' 
-                  ? 'নিম্ন ও মধ্যবিত্ত নাগরিকদের জন্য সয়াবিন তেল (৳১০০), মসুর ডাল (৳৬০), চিনি (৳৭০) ও চালের সুলভ বিক্রি কেন্দ্র।' 
-                  : 'Geospatial GPS tracking of subsidized sales trucks across Dhaka with live inventory and queue duration.'}
+                Geospatial GPS tracking of subsidized sales trucks across Dhaka with live inventory and queue duration.
               </p>
             </div>
 
@@ -121,7 +118,7 @@ export default function TcbTruckLocator() {
                 className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-600/25 hover:bg-emerald-600/35 text-emerald-300 border border-emerald-500/40 text-xs font-bold transition shadow-sm"
               >
                 <Bell className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-                <span>{lang === 'bn' ? 'এসএমএস অ্যালার্ট' : 'SMS Alerts'}</span>
+                <span>SMS Alerts</span>
               </button>
 
               <button
@@ -130,7 +127,7 @@ export default function TcbTruckLocator() {
                 className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/40 text-xs font-bold transition disabled:opacity-50"
               >
                 <Navigation className={`w-3.5 h-3.5 ${locating ? 'animate-spin' : ''}`} />
-                <span>{locating ? 'Locating...' : (lang === 'bn' ? 'আমার কাছে খুঁজুন' : 'Near Me')}</span>
+                <span>{locating ? 'Locating...' : 'Near Me'}</span>
               </button>
 
               <button
@@ -138,7 +135,7 @@ export default function TcbTruckLocator() {
                 className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-                <span>{lang === 'bn' ? 'রিফ্রেশ' : 'Refresh'}</span>
+                <span>Refresh</span>
               </button>
             </div>
           </div>
@@ -149,25 +146,25 @@ export default function TcbTruckLocator() {
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
             <div>
               <span className="text-[11px] text-emerald-400 uppercase font-bold tracking-wider">
-                {lang === 'bn' ? 'টিসিবি ফ্যামিলি কার্ড ও খোলা ট্রাকের ভর্তুকি মূল্য' : 'TCB Subsidized Rates Comparison'}
+                TCB Subsidized Rates Comparison
               </span>
               <h3 className="text-xl font-bold text-white mt-1">
-                {lang === 'bn' ? 'খোলা বাজারের তুলনায় প্যাকেজ প্রতি সাশ্রয়: ৳ ১,০৫০+ টাকা' : 'Average Citizen Savings: ৳ 1,050+ per Family Basket'}
+                Average Citizen Savings: ৳ 1,050+ per Family Basket
               </h3>
             </div>
 
             <div className="flex flex-wrap gap-2 text-xs">
               <span className="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800">
-                Oil: <strong className="text-emerald-400">৳১০০</strong> <span className="text-slate-500 line-through text-[10px]">৳১৬৭</span>
+                Oil: <strong className="text-emerald-400">৳100</strong> <span className="text-slate-500 line-through text-[10px]">৳167</span>
               </span>
               <span className="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800">
-                Lentils: <strong className="text-emerald-400">৳৬০</strong> <span className="text-slate-500 line-through text-[10px]">৳১৩৫</span>
+                Lentils: <strong className="text-emerald-400">৳60</strong> <span className="text-slate-500 line-through text-[10px]">৳135</span>
               </span>
               <span className="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800">
-                Sugar: <strong className="text-emerald-400">৳৭০</strong> <span className="text-slate-500 line-through text-[10px]">৳১৩০</span>
+                Sugar: <strong className="text-emerald-400">৳70</strong> <span className="text-slate-500 line-through text-[10px]">৳130</span>
               </span>
               <span className="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800">
-                Rice: <strong className="text-emerald-400">৳৩০</strong> <span className="text-slate-500 line-through text-[10px]">৳৬৫</span>
+                Rice: <strong className="text-emerald-400">৳30</strong> <span className="text-slate-500 line-through text-[10px]">৳65</span>
               </span>
             </div>
           </div>
@@ -181,7 +178,7 @@ export default function TcbTruckLocator() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder={lang === 'bn' ? 'এলাকা বা থানা সার্চ করুন (যেমন: মিরপুর, ধানমন্ডি)...' : 'Search area or thana (e.g. Mirpur, Dhanmondi)...'}
+              placeholder="Search area or thana (e.g. Mirpur, Dhanmondi)..."
               className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
             />
           </div>
@@ -198,10 +195,9 @@ export default function TcbTruckLocator() {
                       : 'bg-slate-800 text-slate-400 hover:text-white border border-slate-700'
                   }`}
                 >
-                  {status === 'ALL' ? (lang === 'bn' ? 'সকল' : 'All') :
-                   status === 'STATIONED_SELLING' ? (lang === 'bn' ? 'বিক্রি চলছে' : 'Selling') :
-                   status === 'DISPATCHED' ? (lang === 'bn' ? 'পথিমধ্যে' : 'En Route') :
-                   (lang === 'bn' ? 'স্টক শেষ' : 'Empty')}
+                  {status === 'ALL' ? 'All' :
+                   status === 'STATIONED_SELLING' ? 'Selling' :
+                   status === 'DISPATCHED' ? 'En Route' : 'Empty'}
                 </button>
               ))}
             </div>
@@ -249,7 +245,7 @@ export default function TcbTruckLocator() {
             <div className="flex justify-between items-center px-1">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-cyan-400" />
-                <span>{lang === 'bn' ? 'ইন্টারেক্টিভ ঢাকা টিসিবি ম্যাপ' : 'Interactive Dhaka Subsidized Sales Network'}</span>
+                <span>Interactive Dhaka Subsidized Sales Network</span>
               </span>
               <span className="text-[11px] text-slate-500">
                 Click any pin to inspect stock & queue wait time
@@ -269,10 +265,10 @@ export default function TcbTruckLocator() {
             <div className="flex justify-between items-center mb-4 px-1">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Truck className="w-4 h-4 text-cyan-400" />
-                <span>{lang === 'bn' ? 'সক্রিয় টিসিবি ট্রাকের বিস্তারিত তালিকা' : 'Active Subsidized Sale Points'}</span>
+                <span>Active Subsidized Sale Points</span>
               </h3>
               <span className="text-xs text-slate-400">
-                {filteredTrucks.length} {lang === 'bn' ? 'টি কেন্দ্র সক্রিয়' : 'locations active'}
+                {filteredTrucks.length} locations active
               </span>
             </div>
 
@@ -299,7 +295,7 @@ export default function TcbTruckLocator() {
                       <div className="flex justify-between items-start gap-2">
                         <div>
                           <h3 className="text-base font-bold text-white leading-tight">
-                            {lang === 'bn' ? t.locationNameBn : t.locationName}
+                            {t.locationName}
                           </h3>
                           <p className="text-xs text-slate-400 flex items-center gap-1 mt-1">
                             <MapPin className="w-3.5 h-3.5 text-slate-500" />
@@ -326,7 +322,7 @@ export default function TcbTruckLocator() {
                         {/* Oil */}
                         <div>
                           <div className="flex justify-between text-slate-300 mb-0.5">
-                            <span>Soybean Oil (তেল):</span>
+                            <span>Soybean Oil:</span>
                             <strong className={t.stockLevels.soybeanOilLiters < 50 ? 'text-rose-400' : 'text-emerald-400'}>
                               {t.stockLevels.soybeanOilLiters} L
                             </strong>
@@ -339,7 +335,7 @@ export default function TcbTruckLocator() {
                         {/* Lentils */}
                         <div>
                           <div className="flex justify-between text-slate-300 mb-0.5">
-                            <span>Lentils (মসুর ডাল):</span>
+                            <span>Lentils:</span>
                             <strong className={t.stockLevels.lentilsKg < 50 ? 'text-rose-400' : 'text-emerald-400'}>
                               {t.stockLevels.lentilsKg} kg
                             </strong>
@@ -352,7 +348,7 @@ export default function TcbTruckLocator() {
                         {/* Sugar */}
                         <div>
                           <div className="flex justify-between text-slate-300 mb-0.5">
-                            <span>Sugar (চিনি):</span>
+                            <span>Sugar:</span>
                             <strong className="text-slate-200">{t.stockLevels.sugarKg} kg</strong>
                           </div>
                           <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
@@ -363,7 +359,7 @@ export default function TcbTruckLocator() {
                         {/* Rice */}
                         <div>
                           <div className="flex justify-between text-slate-300 mb-0.5">
-                            <span>Rice (চাল):</span>
+                            <span>Rice:</span>
                             <strong className="text-slate-200">{t.stockLevels.riceKg} kg</strong>
                           </div>
                           <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">

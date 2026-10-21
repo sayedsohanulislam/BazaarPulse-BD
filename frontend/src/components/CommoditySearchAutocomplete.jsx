@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, X, ArrowRight, ShoppingCart, Plus, Check } from 'lucide-react';
+import { Search, X, Plus, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
 import { useBazaar } from '../context/BazaarContext';
 import PriceStatusBadge from './PriceStatusBadge';
 
 export default function CommoditySearchAutocomplete({ onSelectItem, placeholder }) {
-  const { lang } = useLanguage();
   const { commodities, addToBasket } = useBazaar();
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -29,9 +27,8 @@ export default function CommoditySearchAutocomplete({ onSelectItem, placeholder 
     if (!query.trim()) return false;
     const q = query.toLowerCase();
     const nameMatch = c.name.toLowerCase().includes(q);
-    const bnMatch = (c.nameBn || '').includes(q);
     const catMatch = (c.category || '').toLowerCase().includes(q);
-    return nameMatch || bnMatch || catMatch;
+    return nameMatch || catMatch;
   }).slice(0, 6);
 
   const handleSelect = (item) => {
@@ -63,10 +60,7 @@ export default function CommoditySearchAutocomplete({ onSelectItem, placeholder 
           }}
           onFocus={() => setIsOpen(true)}
           placeholder={
-            placeholder ||
-            (lang === 'bn' 
-              ? 'চাল, ডাল, আলু, পেঁয়াজ, ডিম, তেল সার্চ করুন (বাংলা বা ইংরেজিতে)...' 
-              : 'Search rice, lentils, potato, onion, eggs, oil (English or বাংলা)...')
+            placeholder || 'Search rice, lentils, potato, onion, eggs, oil, beef, chicken...'
           }
           className="w-full bg-slate-900/95 border-2 border-slate-700/80 rounded-2xl pl-12 pr-12 py-3.5 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:border-emerald-500 shadow-2xl shadow-emerald-950/20 transition backdrop-blur-md"
         />
@@ -105,10 +99,10 @@ export default function CommoditySearchAutocomplete({ onSelectItem, placeholder 
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-bold text-white truncate">
-                          {lang === 'bn' ? item.nameBn : item.name}
+                          {item.name}
                         </span>
                         <span className="text-xs text-slate-400 hidden sm:inline">
-                          ({lang === 'bn' ? item.name : item.nameBn})
+                          ({item.category})
                         </span>
                       </div>
                       <div className="flex items-center gap-2 mt-0.5 text-xs">
@@ -135,7 +129,7 @@ export default function CommoditySearchAutocomplete({ onSelectItem, placeholder 
                           ? 'bg-emerald-600 text-white'
                           : 'bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700'
                       }`}
-                      title={lang === 'bn' ? 'ব্যাগে যোগ করুন' : 'Add to Basket'}
+                      title="Add to Basket"
                     >
                       {isAdded ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                     </button>
@@ -145,9 +139,9 @@ export default function CommoditySearchAutocomplete({ onSelectItem, placeholder 
             })
           ) : (
             <div className="p-6 text-center text-xs text-slate-400">
-              <p>{lang === 'bn' ? 'কোনো পণ্য পাওয়া যায়নি।' : 'No matching commodities found.'}</p>
+              <p>No matching commodities found.</p>
               <p className="mt-1 text-slate-500">
-                {lang === 'bn' ? 'চাল, পেঁয়াজ, ডিম, আলু ইত্যাদি অনুসন্ধান করুন।' : 'Try searching for rice, onion, egg, potato, or oil.'}
+                Try searching for rice, onion, egg, potato, chicken, or soybean oil.
               </p>
             </div>
           )}
