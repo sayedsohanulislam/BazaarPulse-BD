@@ -22,6 +22,7 @@ import AgroWeatherForex from './pages/AgroWeatherForex';
 import ConsumerWhistleblower from './pages/ConsumerWhistleblower';
 import BudgetCalculator from './pages/BudgetCalculator';
 import AuthorityCommand from './pages/AuthorityCommand';
+import NotFound from './pages/NotFound';
 
 function MainApp() {
   const [authOpen, setAuthOpen] = useState(false);
@@ -42,6 +43,7 @@ function MainApp() {
           <Route path="/whistle" element={<ConsumerWhistleblower />} />
           <Route path="/budget" element={<BudgetCalculator />} />
           <Route path="/authority" element={<AuthorityCommand />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
 

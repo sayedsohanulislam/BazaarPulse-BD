@@ -2,15 +2,96 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'><path d='M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z'/></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary SEO Meta Tags -->
     <title>BazaarPulse BD — National Kitchen Market Fair Pricing & Anti-Gouging Intelligence</title>
-    <!-- Tailwind CSS CDN Fallback -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="title" content="BazaarPulse BD — National Kitchen Market Fair Pricing & Anti-Gouging Intelligence" />
+    <meta name="description" content="Real-time Bangladesh kitchen market price tracker, Karwan Bazar wholesale benchmark, Department of Agricultural Marketing (DAM) fair caps, live TCB subsidized truck locator, and direct DNCRP whistleblower reporting." />
+    <meta name="keywords" content="BazaarPulse BD, Bangladesh commodity prices, DAM fair price, TCB truck tracker, Karwan Bazar wholesale, potato price, onion price, rice price, soybean oil price, anti-gouging, DNCRP 13346" />
+    <meta name="author" content="BazaarPulse BD Team" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://bazaarpulse-bd.vercel.app/" />
+
+    <!-- Favicon & PWA Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#10b981" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bazaarpulse-bd.vercel.app/" />
+    <meta property="og:site_name" content="BazaarPulse BD" />
+    <meta property="og:title" content="BazaarPulse BD — National Kitchen Market Fair Pricing Intelligence" />
+    <meta property="og:description" content="Compare neighborhood retail prices with Karwan Bazar wholesale and DAM government fair caps. Track live TCB trucks and combat artificial market syndicates." />
+    <meta property="og:image" content="https://bazaarpulse-bd.vercel.app/favicon.svg" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://bazaarpulse-bd.vercel.app/" />
+    <meta name="twitter:title" content="BazaarPulse BD — National Kitchen Market Fair Pricing Intelligence" />
+    <meta name="twitter:description" content="Algorithmic fair pricing benchmarks, live TCB subsidized truck tracking, and anti-gouging citizen whistleblowing." />
+    <meta name="twitter:image" content="https://bazaarpulse-bd.vercel.app/favicon.svg" />
+
+    <!-- Typography: Inter & Hind Siliguri (Bengali) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- JSON-LD Structured Data: WebApplication & Dataset -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://bazaarpulse-bd.vercel.app/#webapp",
+          "name": "BazaarPulse BD",
+          "url": "https://bazaarpulse-bd.vercel.app/",
+          "description": "National Kitchen Market Fair Pricing & Anti-Gouging Intelligence Suite for Bangladesh.",
+          "applicationCategory": "GovernmentApplication, CivicTech",
+          "operatingSystem": "All",
+          "inLanguage": ["en", "bn"],
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BDT"
+          }
+        },
+        {
+          "@type": "Dataset",
+          "@id": "https://bazaarpulse-bd.vercel.app/#dataset",
+          "name": "Bangladesh Essential Commodity Daily Price & Telemetry Index",
+          "description": "Synthesized dataset combining Department of Agricultural Marketing (DAM) fair price caps, Trading Corporation of Bangladesh (TCB) subsidized truck inventory, Karwan Bazar wholesale arat baseline, and Open-Meteo agrometeorological risk metrics.",
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "creator": {
+            "@type": "Organization",
+            "name": "BazaarPulse BD Initiative"
+          },
+          "sourceOrganization": [
+            {
+              "@type": "Organization",
+              "name": "Department of Agricultural Marketing (DAM), Bangladesh"
+            },
+            {
+              "@type": "Organization",
+              "name": "Trading Corporation of Bangladesh (TCB)"
+            },
+            {
+              "@type": "Organization",
+              "name": "Directorate of National Consumer Rights Protection (DNCRP)"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
-  <body class="bg-slate-900 text-slate-100 min-h-screen">
+  <body class="bg-[#040711] text-slate-100 min-h-screen font-sans antialiased selection:bg-emerald-500 selection:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

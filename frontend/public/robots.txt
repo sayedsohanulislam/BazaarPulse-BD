@@ -1,0 +1,5 @@
+# BazaarPulse BD robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://bazaarpulse-bd.vercel.app/sitemap.xml

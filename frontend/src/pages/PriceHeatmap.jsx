@@ -4,11 +4,14 @@ import {
   TrendingUp, Search, Filter, AlertTriangle, ShieldCheck, 
   ArrowUpRight, ArrowDownRight, Scale, RefreshCw, Layers, MapPin,
   LayoutGrid, Table, ArrowUpDown, Plus, ShoppingCart, AlertOctagon,
-  Sparkles, CheckCircle2
+  Sparkles, CheckCircle2, Download, Share2
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useBazaar } from '../context/BazaarContext';
 import { analyticsApi } from '../services/api';
+import PriceStatusBadge from '../components/PriceStatusBadge';
+import PriceTrendModal from '../components/PriceTrendModal';
+import SharePriceCardModal from '../components/SharePriceCardModal';
 
 // Simple SVG sparkline component for price trajectory visual
 function PriceSparkline({ delta = 0 }) {
@@ -86,6 +89,8 @@ export default function PriceHeatmap() {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'table'
   const [sortBy, setSortBy] = useState('overcharge'); // 'overcharge' | 'priceDesc' | 'priceAsc' | 'risk'
   const [onlyOvercharged, setOnlyOvercharged] = useState(false);
+  const [trendModalCommodity, setTrendModalCommodity] = useState(null);
+  const [shareModalCommodity, setShareModalCommodity] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -95,8 +100,37 @@ export default function PriceHeatmap() {
   }, []);
 
   const categories = [
-    'ALL', 'Vegetables', 'Spices', 'Oils & Fats', 'Poultry & Meat', 'Fish', 'Grains & Rice', 'Lentils & Pulses'
+    { id: 'ALL', label: 'All Items', labelBn: 'সকল পণ্য', icon: '🧺' },
+    { id: 'Vegetables', label: 'Vegetables', labelBn: 'সবজি', icon: '🥔' },
+    { id: 'Spices', label: 'Spices', labelBn: 'মসলা', icon: '🧅' },
+    { id: 'Oils & Fats', label: 'Oils & Fats', labelBn: 'ভোজ্য তেল', icon: '🛢️' },
+    { id: 'Poultry & Meat', label: 'Poultry & Meat', labelBn: 'মাংস ও ডিম', icon: '🥩' },
+    { id: 'Fish', label: 'Fish', labelBn: 'মাছ', icon: '🐟' },
+    { id: 'Grains & Rice', label: 'Grains & Rice', labelBn: 'চাল ও গম', icon: '🌾' },
+    { id: 'Lentils & Pulses', label: 'Lentils & Pulses', labelBn: 'ডাল', icon: '🫘' }
   ];
+
+  const handleExportCSV = () => {
+    const headers = ['Commodity', 'Category', 'DAM Fair Min (BDT)', 'DAM Fair Max (BDT)', 'Karwan Wholesale (BDT)', 'Retail Price (BDT)', 'Overcharge (BDT)', 'Syndicate Risk %'];
+    const rows = filtered.map(c => [
+      c.name,
+      c.category,
+      c.damFairPriceMin,
+      c.damFairPriceMax,
+      c.karwanBazarWholesale,
+      c.retailAvgPrice,
+      Math.max(0, c.retailAvgPrice - c.damFairPriceMax),
+      c.syndicateRiskScore || 0
+    ]);
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `bazaarpulse_price_matrix_${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   // Filtering
   let filtered = (commodities || []).filter(c => {
@@ -144,6 +178,15 @@ export default function PriceHeatmap() {
             </div>
 
             <div className="flex items-center gap-3">
+              <button
+                onClick={handleExportCSV}
+                className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs border border-slate-700 transition"
+                title="Download Clean CSV Matrix"
+              >
+                <Download className="w-4 h-4 text-emerald-400" />
+                <span>{lang === 'bn' ? 'এক্সপোর্ট CSV' : 'Export CSV'}</span>
+              </button>
+
               <button
                 onClick={() => setIsBasketOpen(true)}
                 className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs border border-slate-700 transition"
@@ -243,15 +286,16 @@ export default function PriceHeatmap() {
           <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-800/80">
             {categories.map(cat => (
               <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
-                  selectedCategory === cat 
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                  selectedCategory === cat.id 
                     ? 'bg-emerald-600 text-white shadow-md shadow-emerald-950' 
                     : 'bg-slate-950/70 text-slate-400 hover:text-white border border-slate-800'
                 }`}
               >
-                {cat === 'ALL' ? (lang === 'bn' ? 'সকল পণ্য' : 'All Categories') : cat}
+                <span>{cat.icon}</span>
+                <span>{lang === 'bn' ? cat.labelBn : cat.label}</span>
               </button>
             ))}
           </div>
@@ -354,6 +398,24 @@ export default function PriceHeatmap() {
                       >
                         {lang === 'bn' ? 'রিপোর্ট' : 'Report'}
                       </Link>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        onClick={() => setTrendModalCommodity(c)}
+                        className="py-1.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-semibold border border-slate-700 flex items-center justify-center gap-1 transition"
+                      >
+                        <TrendingUp className="w-3 h-3 text-cyan-400" />
+                        <span>Trends (7-90d)</span>
+                      </button>
+
+                      <button
+                        onClick={() => setShareModalCommodity(c)}
+                        className="py-1.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-semibold border border-slate-700 flex items-center justify-center gap-1 transition"
+                      >
+                        <Share2 className="w-3 h-3 text-emerald-400" />
+                        <span>Share Alert</span>
+                      </button>
                     </div>
 
                     <button
@@ -499,6 +561,20 @@ export default function PriceHeatmap() {
             </table>
           </div>
         </div>
+
+        {/* Dynamic Modals */}
+        <PriceTrendModal
+          commodity={trendModalCommodity}
+          isOpen={Boolean(trendModalCommodity)}
+          onClose={() => setTrendModalCommodity(null)}
+          onOpenShareCard={(comm) => setShareModalCommodity(comm)}
+        />
+
+        <SharePriceCardModal
+          commodity={shareModalCommodity}
+          isOpen={Boolean(shareModalCommodity)}
+          onClose={() => setShareModalCommodity(null)}
+        />
 
       </div>
     </div>
